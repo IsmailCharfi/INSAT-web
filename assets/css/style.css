@@ -173,6 +173,8 @@ section {
         padding: 6px 2px;
     }
 }
+
+
 /******************************************************
                     # Log in Modal
 ******************************************************/
@@ -202,20 +204,6 @@ section {
     justify-content: center;
 }
 
-#LogInModal .modal-content .form-group {
-    position: relative;
-}
-
-#LogInModal .modal-content i {
-    position: absolute;
-    left: 13px;
-    top: 36px;
-    font-size: 18px;
-}
-
-#LogInModal .modal-content .form-control {
-    padding-left: 40px;
-}
 
 /******************************************************
                     # Navigation Menu
