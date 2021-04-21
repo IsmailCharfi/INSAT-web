@@ -31,10 +31,10 @@
 
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-center">
-        <div class="container d-flex align-items-center">
-            <h1 class="logo me-auto">
+        <div class="container-fluid d-flex align-items-center">
+            <div class="logo me-auto">
                 <a href="index.php"><img id="logo" src="./assets/img/favicon.png" /> <img src="./assets/img/logo_v4.jpg"></a>
-            </h1>
+            </div>
             <!-- ======= NavBar ======= -->
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
