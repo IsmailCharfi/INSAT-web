@@ -1,103 +1,8 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>INSAT - Institut National des Sciences Appliquées et de Technologie</title>
-
-
-    <!-- ======= Favicons ======= -->
-    <link href="assets/img/favicon.png" rel="icon">
-
-    <!-- ======= Google Fonts ======= -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- ======= External CSS Files ======= -->
-    <link href="assets/external/aos/aos.css" rel="stylesheet">
-    <link href="assets/external/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/external/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/external/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- ======= Main CSS File ======= -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center">
-        <div class="container d-flex align-items-center">
-            <h1 class="logo me-auto">
-                <a href="index.html"><img id="logo" src="./assets/img/favicon.png" /> <img src="./assets/img/logo_v4.jpg"></a>
-            </h1>
-            <!-- ======= NavBar ======= -->
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto active" href="#welcome">Acceuil</a></li>
-                    <li><a class="nav-link scrollto" href="#tabs">A propos</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                    <li class="dropdown"><a class="nav-link">Autres<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
-                        <ul>
-                            <li><a class="nav-link" href="actualites.html">Les Actualités</a></li>
-                            <li><a class="nav-link" href="emplois-du-temps.html">Emplois du temps</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <i class="bi bi-list mobile-nav-btn"></i>
-                <div id="mySidenav" class="sidenav">
-                    <i class="closebtn"><iconify-icon data-icon="line-md:arrow-close-right"></iconify-icon></i>
-                    <a class="nav-link scrollto active" href="#welcome">Acceuil</a>
-                    <a class="nav-link scrollto" href="#tabs">A propos</a>
-                    <a class="nav-link scrollto" href="#contact">Contact</a>
-                    <a href="actualites.html">Les Actualités</a>
-                    <a href="emplois-du-temps.html">Emplois du temps</a>
-                </div>
-            </nav>
-            <!-- ======= End Of NavBar ======= -->
-            <a href="#" class="log-in-btn scrollto" data-bs-toggle="modal" data-bs-target="#LogInModal">Se connecter</a>
-        </div>
-    </header>
-    <!-- ======= End Of Header ======= -->
-
-    <!--===== Log in Modal ====-->
-    <div class="modal fade" id="LogInModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-header">
-                    <h4 class="w-100 modal-title">
-                        <img src="./assets/img/favicon.png" class="w-100 "> Connexion
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="Post">
-                        <div class="mb-3 form-group">
-                            <label for="mail-input" class="form-label">E-mail universitaire</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i><iconify-icon data-icon="fa:user"></iconify-icon></i></span>
-                                <input id="mail-input" name="mail" type="email" class="form-control" placeholder="xyz@insat.u-carthage.tn" aria-describedby="basic-addon1" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 form-group">
-                            <label for="password-input" class="form-label">Mot de passe</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">
-                                <i><iconify-icon data-icon="fa:lock"></iconify-icon></i>
-                            </span>
-                                <input type="password" name="pwd" class="form-control" id="password-input" placeholder="xxxxx" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn log-in-btn mx-auto d-block" href="#">Se connecter</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <a href="#">Mot de passe oublié ?</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<?php
+    $homePage = true;
+    $title = "INSAT - Institut National des Sciences Appliquées et de Technologie";
+    include_once "./fragments/header.php";
+?>
 
     <!-- ======= Welcome Section ======= -->
     <section id="welcome">
@@ -134,7 +39,6 @@
         <div class="carousel-caption px-auto" data-aos="zoom-out" data-aos-delay="50">
             <h1>L'institut National des Sciences Appliquées et de Technologie<br></h1>
             <a href="#tabs" class="btn-get-started scrollto">A propos ></a>
-        </div>
         </div>
     </section>
     <!-- ======= End of Welcome Section ======= -->
@@ -421,79 +325,5 @@
     </main>
     <!-- ======= End of Main ======= -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
+<?php include_once "./fragments/footer.php" ?>
 
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6  footer-element footer-contact">
-                        <h3><span>In</span>sat</h3>
-                        <p>
-                            Centre Urbain Nord<br> BP 676 - 1080 Tunis Cedex<br> Tunisie
-                        </p>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6  footer-element footer-contact">
-                        <h4>Contact</h4>
-                        <p>
-                            <strong>Tél :</strong> + 216 71 70 38 29<br>
-                            <strong>Fax :</strong> + 216 71 70 43 29<br>
-                            <strong>Email :</strong> contact@insat.u-carthage.tn<br>
-                        </p>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6  footer-element footer-links">
-                        <h4>Liens Utiles</h4>
-                        <ul>
-                            <li>
-                                <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
-                                </i> <a href="http://www.insat.rnu.tn/" target="_blank">insat.rnu</a>
-                            </li>
-                            <li>
-                                <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
-                                </i> <a href="http://www.mes.tn/" target="_blank">Ministère</a>
-                            </li>
-                            <li>
-                                <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
-                                </i> <a href="http://www.ucar.rnu.tn/" target="_blank">Univ carthage</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class=" col-lg-4 col-md-6  footer-element social-links ">
-                        <h4>Suivez Nous</h4><br>
-                        <a href="https://www.facebook.com/insat.rnu.tn" target="_blank" class="facebook"><i><iconify-icon data-icon="ant-design:facebook-filled"></iconify-icon></i></a>
-                        <a href="https://www.linkedin.com/school/national-institute-of-applied-science-and-technology" target="_blank" class="linkedin"><i><iconify-icon data-icon="cib:linkedin-in"></iconify-icon></i></a>
-                        <a href="https://twitter.com/INSAT92473558" target="_blank" class="twitter"><i><iconify-icon data-icon="akar-icons:twitter-fill"></iconify-icon></i></a>
-                        <a href="https://www.instagram.com/insat478" target="_blank" class="instagram">
-                            <iconify-icon data-icon="akar-icons:instagram-fill"></iconify-icon>
-                            </i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
-    <!-- ======= End Of Footer ======= -->
-
-    <!-- ======= Back To Top Button ======= -->
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-        <i><iconify-icon data-icon="bi:arrow-up-short"></iconify-icon></i>
-    </a>
-
-    <!-- ======= External JS Files ======= -->
-    <script src="assets/external/aos/aos.js"></script>
-    <script src="assets/external/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/external/purecounter/purecounter.js"></script>
-    <script src="assets/external/swiper/swiper-bundle.min.js"></script>
-    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-
-    <!-- ======= Main JS File ======= -->
-    <script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
