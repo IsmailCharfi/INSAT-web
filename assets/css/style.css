@@ -95,9 +95,11 @@ section {
 }
 
 @media (max-width: 600px) {
-    #header,
-    #header.header-scrolled {
+    #header {
         padding: 10px 0 5px 0;
+    }
+    #header.header-scrolled {
+        padding: 0;
     }
 }
 
@@ -969,7 +971,7 @@ div.clubs:active {
 }
 
 #footer .footer-top {
-    padding: 25px 0 30px 160px;
+    padding: 25px 0 5px 160px;
     background: #1b1b1b;
 }
 
