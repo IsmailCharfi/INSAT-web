@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <!-- ======= Favicons ======= -->
+        <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
+        <title>{% block title %}{% endblock %}</title>
+
+        {% block stylesheets %}
+            <!-- ======= Google Fonts ======= -->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+            <!-- ======= External CSS Files ======= -->
+            <link rel="stylesheet" href="{{asset('assets/external/bootstrap/css/bootstrap.min.css')}}" />
+            <link rel="stylesheet" href="{{asset('assets/external/aos/aos.css')}}" />
+            <link rel="stylesheet" href="{{asset('assets/external/bootstrap-icons/bootstrap-icons.css')}}" />
+            {% if homepage is defined %}
+                <link rel="stylesheet" href="{{asset('assets/external/swiper/swiper-bundle.min.css')}}" />
+            {% endif %}
+            <!-- ======= Main CSS File ======= -->
+            <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+
+        {% endblock %}
+
+
+    </head>
+
+    <body>
+        {% block header %}
+            <header id="header" class="fixed-top d-flex align-items-center">
+                <div class="container-fluid d-flex align-items-center">
+                    <div class="logo me-auto">
+                        <a href="/"><img id="logo" src="{{asset('assets/img/favicon.png')}}" /> <img src="{{asset('assets/img/logo_v4.jpg')}}"></a>
+                    </div>
+                    <!-- ======= NavBar ======= -->
+                    <nav id="navbar" class="navbar order-last order-lg-0">
+                        <ul>
+                            <li><a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a></li>
+                            <li><a class="nav-link scrollto" href="/#tabs">A propos</a></li>
+                            <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+                            <li class="dropdown"><a class="nav-link">Autres<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
+                                <ul>
+                                    <li><a class="nav-link" href="/actualites">Les Actualités</a></li>
+                                    <li><a class="nav-link" href="/emplois">Emplois du temps</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <i class="bi bi-list mobile-nav-btn"></i>
+                        <div id="mySidenav" class="sidenav">
+                            <i class="closebtn"><iconify-icon data-icon="line-md:arrow-close-right"></iconify-icon></i>
+                            <a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a>
+                            <a class="nav-link scrollto" href="/#tabs">A propos</a>
+                            <a class="nav-link scrollto" href="/#contact">Contact</a>
+                            <a href="/actualites">Les Actualités</a>
+                            <a href="/emplois">Emplois du temps</a>
+                        </div>
+                    </nav>
+                    <a href="#" class="log-in-btn scrollto" data-bs-toggle="modal" data-bs-target="#LogInModal">Se connecter</a>
+                    <!-- ======= End Of NavBar ======= -->
+                </div>
+            </header>
+        {% endblock %}
+
+        {% block loginmodal %}
+            <!--===== Log in Modal ====-->
+            <div class="modal fade" id="LogInModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-header">
+                            <h4 class="w-100 modal-title">
+                                <img src="{{asset('assets/img/favicon.png')}}" class="w-100 "> Connexion
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="Post">
+                                <div class="mb-3 form-group">
+                                    <label for="mail-input" class="form-label">E-mail universitaire</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i><iconify-icon data-icon="fa:user"></iconify-icon></i></span>
+                                        <input id="mail-input" name="mail" type="email" class="form-control" placeholder="xyz@insat.u-carthage.tn" aria-describedby="basic-addon1" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-group">
+                                    <label for="password-input" class="form-label">Mot de passe</label>
+                                    <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon2">
+                                <i><iconify-icon data-icon="fa:lock"></iconify-icon></i>
+                            </span>
+                                        <input type="password" name="pwd" class="form-control" id="password-input" placeholder="xxxxx" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn log-in-btn mx-auto d-block" href="#">Se connecter</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#">Mot de passe oublié ?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block body %}
+
+        {% endblock %}
+
+        {% block footer %}
+            <footer id="footer">
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
+                                <h3><span>In</span>sat</h3>
+                                <p>
+                                    Centre Urbain Nord<br> BP 676 - 1080 Tunis Cedex<br> Tunisie
+                                </p>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
+                                <h4>Contact</h4>
+                                <p>
+                                    <strong>Tél :</strong> + 216 71 70 38 29<br>
+                                    <strong>Fax :</strong> + 216 71 70 43 29<br>
+                                    <strong>Email :</strong> contact@insat.u-carthage.tn<br>
+                                </p>
+                            </div>
+
+                            <div class="col-lg-2 col-md-6  footer-element footer-links">
+                                <h4>Liens Utiles</h4>
+                                <ul>
+                                    <li>
+                                        <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                        </i> <a href="http://www.insat.rnu.tn/" target="_blank">insat.rnu</a>
+                                    </li>
+                                    <li>
+                                        <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                        </i> <a href="http://www.mes.tn/" target="_blank">Ministère</a>
+                                    </li>
+                                    <li>
+                                        <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                        </i> <a href="http://www.ucar.rnu.tn/" target="_blank">Univ carthage</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class=" col-lg-4 col-md-6  footer-element social-links ">
+                                <h4>Suivez Nous</h4><br>
+                                <a href="https://www.facebook.com/insat.rnu.tn" target="_blank" class="facebook"><i><iconify-icon data-icon="ant-design:facebook-filled"></iconify-icon></i></a>
+                                <a href="https://www.linkedin.com/school/national-institute-of-applied-science-and-technology" target="_blank" class="linkedin"><i><iconify-icon data-icon="cib:linkedin-in"></iconify-icon></i></a>
+                                <a href="https://twitter.com/INSAT92473558" target="_blank" class="twitter"><i><iconify-icon data-icon="akar-icons:twitter-fill"></iconify-icon></i></a>
+                                <a href="https://www.instagram.com/insat478" target="_blank" class="instagram">
+                                    <iconify-icon data-icon="akar-icons:instagram-fill"></iconify-icon>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- ======= Back To Top Button ======= -->
+            <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+                <i><iconify-icon data-icon="bi:arrow-up-short"></iconify-icon></i>
+            </a>
+        {% endblock %}
+
+        {% block javascripts %}
+            <!-- ======= External JS Files ======= -->
+            <script src="{{asset('assets/external/aos/aos.js')}}"></script>
+            <script src="{{asset('assets/external/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+            <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+            {% if homepage is defined %}
+            <script src="{{asset('assets/external/purecounter/purecounter.js')}}"></script>
+            <script src="{{asset('assets/external/swiper/swiper-bundle.min.js')}}"></script>
+            {% endif %}
+            <!-- ======= Main JS File ======= -->
+            <script src="{{asset('assets/js/main.js')}}"></script>
+        {% endblock %}
+    </body>
+</html>

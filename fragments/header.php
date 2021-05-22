@@ -38,9 +38,9 @@
             <!-- ======= NavBar ======= -->
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#welcome">Acceuil</a></li>
-                    <li><a class="nav-link scrollto" href="#tabs">A propos</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    <li><a class="nav-link scrollto <?php if (isset($homePage)) echo "active" ?>" href="index.php#welcome">Acceuil</a></li>
+                    <li><a class="nav-link scrollto" href="index.php#tabs">A propos</a></li>
+                    <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
                     <li class="dropdown"><a class="nav-link">Autres<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
                         <ul>
                             <li><a class="nav-link" href="actualites.php">Les Actualités</a></li>
@@ -51,9 +51,9 @@
                 <i class="bi bi-list mobile-nav-btn"></i>
                 <div id="mySidenav" class="sidenav">
                     <i class="closebtn"><iconify-icon data-icon="line-md:arrow-close-right"></iconify-icon></i>
-                    <a class="nav-link scrollto active" href="#welcome">Acceuil</a>
-                    <a class="nav-link scrollto" href="#tabs">A propos</a>
-                    <a class="nav-link scrollto" href="#contact">Contact</a>
+                    <a class="nav-link scrollto <?php if (isset($homePage)) echo "active" ?>" href="index.php#welcome">Acceuil</a>
+                    <a class="nav-link scrollto" href="index.php#tabs">A propos</a>
+                    <a class="nav-link scrollto" href="index.php#contact">Contact</a>
                     <a href="actualites.php">Les Actualités</a>
                     <a href="emplois-du-temps.php">Emplois du temps</a>
                 </div>
