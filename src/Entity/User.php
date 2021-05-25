@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *     "operateur" = "Operateur"
  * })
  */
-abstract class User implements UserInterface
+abstract  class User implements UserInterface
 {
     /**
      * @ORM\Id
