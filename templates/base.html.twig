@@ -28,7 +28,7 @@
     <body>
         {% block header %}
             <header id="header" class="fixed-top d-flex align-items-center">
-                <div class="container-fluid d-flex align-items-center">
+                <div class="container-fluid d-flex align-items-center inner-header">
                     <div class="logo me-auto">
                         <a href="/"><img id="logo" src="{{asset('assets/img/favicon.png')}}" /> <img src="{{asset('assets/img/logo_v4.jpg')}}"></a>
                     </div>
@@ -38,10 +38,11 @@
                             <li><a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a></li>
                             <li><a class="nav-link scrollto" href="/#tabs">A propos</a></li>
                             <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
-                            <li class="dropdown"><a class="nav-link">Autres<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
+                            <li class="dropdown"><a class="nav-link">Services<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
                                 <ul>
-                                    <li><a class="nav-link" href="/actualites">Les Actualités</a></li>
+                                    <li><a class="nav-link" href="/actualites">Actualités</a></li>
                                     <li><a class="nav-link" href="/emplois">Emplois du temps</a></li>
+                                    <li><a class="nav-link" href="/documents">Documents Utiles</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -51,11 +52,15 @@
                             <a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a>
                             <a class="nav-link scrollto" href="/#tabs">A propos</a>
                             <a class="nav-link scrollto" href="/#contact">Contact</a>
-                            <a href="/actualites">Les Actualités</a>
+                            <a href="/actualites">Actualités</a>
                             <a href="/emplois">Emplois du temps</a>
+                            <a href="/documents">Documents Utiles</a>
                         </div>
                     </nav>
-                    <a href="#" class="log-in-btn scrollto" data-bs-toggle="modal" data-bs-target="#LogInModal">Se connecter</a>
+                    {% if not userManager.isAuthenticated() %}
+                    <a href="#" class="log-in-btn " data-bs-toggle="modal" data-bs-target="#LogInModal">Se connecter</a>
+
+                    {% endif %}
                     <!-- ======= End Of NavBar ======= -->
                 </div>
             </header>

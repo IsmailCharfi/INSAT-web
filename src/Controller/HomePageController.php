@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomePageController extends AbstractController
 {
     /**
-     * @Route ("/", name="home_page")
+     * @Route ("/", name="homePage")
      */
     public function index(): Response
     {
@@ -30,7 +30,7 @@ class HomePageController extends AbstractController
     }
 
     /**
-     * @Route("/emplois", name="Emplois")
+     * @Route("/emplois", name="emplois")
      */
     public function emplois(): Response
     {
@@ -39,5 +39,14 @@ class HomePageController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/documents", name="documents")
+     */
+    public function documents(): Response
+    {
+        return $this->render('HomePage/documents.html.twig', [
+            'title' => "INSAT - Documents",
+        ]);
+    }
 
 }
