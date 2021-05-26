@@ -39,10 +39,16 @@ class Niveau
      */
     private $etudiants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Filiere::class, mappedBy="niveaux")
+     */
+    private $filieres;
+
     public function __construct()
     {
         $this->matiereNiveauFilieres = new ArrayCollection();
         $this->etudiants = new ArrayCollection();
+        $this->filieres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +135,33 @@ class Niveau
             if ($etudiant->getNiveau() === $this) {
                 $etudiant->setNiveau(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Filiere[]
+     */
+    public function getFilieres(): Collection
+    {
+        return $this->filieres;
+    }
+
+    public function addFiliere(Filiere $filiere): self
+    {
+        if (!$this->filieres->contains($filiere)) {
+            $this->filieres[] = $filiere;
+            $filiere->addNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFiliere(Filiere $filiere): self
+    {
+        if ($this->filieres->removeElement($filiere)) {
+            $filiere->removeNiveau($this);
         }
 
         return $this;
