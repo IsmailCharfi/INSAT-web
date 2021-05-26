@@ -39,10 +39,16 @@ class Filiere
      */
     private $etudiants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Niveau::class, inversedBy="filieres")
+     */
+    private $niveaux;
+
     public function __construct()
     {
         $this->matiereNiveauFilieres = new ArrayCollection();
         $this->etudiants = new ArrayCollection();
+        $this->niveaux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +136,30 @@ class Filiere
                 $etudiant->setFiliere(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Niveau[]
+     */
+    public function getNiveaux(): Collection
+    {
+        return $this->niveaux;
+    }
+
+    public function addNiveau(Niveau $niveau): self
+    {
+        if (!$this->niveaux->contains($niveau)) {
+            $this->niveaux[] = $niveau;
+        }
+
+        return $this;
+    }
+
+    public function removeNiveau(Niveau $niveau): self
+    {
+        $this->niveaux->removeElement($niveau);
 
         return $this;
     }
