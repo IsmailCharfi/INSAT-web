@@ -19,6 +19,12 @@ class ParametresRepository extends ServiceEntityRepository
         parent::__construct($registry, Parametres::class);
     }
 
+    public function findCurrentParameters()
+    {
+        $all = $this->findAll();
+        return count($all) >= 1 ? $all[0] : new Parametres();
+    }
+
     // /**
     //  * @return Parametres[] Returns an array of Parametres objects
     //  */
@@ -47,4 +53,6 @@ class ParametresRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }

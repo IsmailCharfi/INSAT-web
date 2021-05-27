@@ -106,4 +106,11 @@ class Parametres
 
         return $this;
     }
+
+    public function formatAdresse(): self
+    {
+        $this->adresse = str_replace(array("\r\n", "\n", "\r"), '<br/>', $this->adresse);
+
+        return $this;
+    }
 }

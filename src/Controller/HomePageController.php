@@ -14,7 +14,7 @@ class HomePageController extends AbstractController
     public function index(): Response
     {
         return $this->render('HomePage/index.html.twig', [
-            'title' => 'INSAT - Institut National des Sciences Appliquées et de Technologie',
+            'title' => 'Institut National des Sciences Appliquées et de Technologie',
             'homepage' => true,
         ]);
     }
@@ -25,7 +25,7 @@ class HomePageController extends AbstractController
     public function actualites(): Response
     {
         return $this->render('HomePage/actualites.html.twig', [
-            'title' => "INSAT - Les Actualités",
+            'title' => "Les Actualités",
         ]);
     }
 
@@ -35,7 +35,7 @@ class HomePageController extends AbstractController
     public function emplois(): Response
     {
         return $this->render('HomePage/emplois.html.twig', [
-            'title' => "INSAT - Emplois du temps",
+            'title' => "Emplois du temps",
         ]);
     }
 
@@ -45,7 +45,7 @@ class HomePageController extends AbstractController
     public function documents(): Response
     {
         return $this->render('HomePage/documents.html.twig', [
-            'title' => "INSAT - Documents",
+            'title' => "Documents Utiles",
         ]);
     }
 

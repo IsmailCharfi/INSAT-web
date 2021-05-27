@@ -94,7 +94,7 @@ class UserAuthAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('actualites'));
+        return new RedirectResponse($this->urlGenerator->generate('homePage'));
     }
 
     protected function getLoginUrl()

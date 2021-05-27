@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ emploi_du_temp.id }}</td>
+            </tr>
+            <tr>
+                <th>AnneeScolaire</th>
+                <td>{{ emploi_du_temp.anneeScolaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('emploi_du_temps_index') }}">back to list</a>
+
+    <a href="{{ path('emploi_du_temps_edit', {'id': emploi_du_temp.id}) }}">edit</a>
+
+    {{ include('emploi_du_temps/_delete_form.html.twig') }}
+{% endblock %}

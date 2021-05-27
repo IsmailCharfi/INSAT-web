@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>AnneeScolaire</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emploi_du_temp in emploi_du_temps %}
+            <tr>
+                <td>{{ emploi_du_temp.id }}</td>
+                <td>{{ emploi_du_temp.anneeScolaire }}</td>
+                <td>
+                    <a href="{{ path('emploi_du_temps_show', {'id': emploi_du_temp.id}) }}">show</a>
+                    <a href="{{ path('emploi_du_temps_edit', {'id': emploi_du_temp.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('emploi_du_temps_new') }}">Create new</a>
+{% endblock %}
