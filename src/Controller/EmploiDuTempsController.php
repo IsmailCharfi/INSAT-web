@@ -34,6 +34,8 @@ class EmploiDuTempsController extends AbstractController
             $entityManager->persist($emploiDuTemp);
             $entityManager->flush();
 
+            $this->addFlash('success',"Emploi du temps : ".$emploiDuTemp->getFiliere()."ajouté avec succès" );
+
             return $this->redirectToRoute('emploi_du_temps_index');
         }
 
@@ -61,6 +63,8 @@ class EmploiDuTempsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success',"Emploi du temps : ".$emploiDuTemp->getFiliere()."modifié avec succès" );
 
             return $this->redirectToRoute('emploi_du_temps_index');
         }

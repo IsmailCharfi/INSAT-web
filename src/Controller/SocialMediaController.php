@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\SocialMedia;
 use App\Form\SocialMediaType;
 use App\Repository\SocialMediaRepository;
+use App\Service\AppDataManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/social/media')]
 class SocialMediaController extends AbstractController
 {
+    private $appDataManager;
+
+    public function __construct(AppDataManager $appDataManager){
+        $this->appDataManager = $appDataManager;
+    }
+
     #[Route('/', name: 'social_media_index', methods: ['GET'])]
     public function index(SocialMediaRepository $socialMediaRepository): Response
     {
@@ -33,6 +40,9 @@ class SocialMediaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($socialMedia);
             $entityManager->flush();
+            $this->appDataManager->reloadData();
+
+            $this->addFlash('success',"Réseau social : ".$socialMedia->getNom()."ajouté avec succès" );
 
             return $this->redirectToRoute('social_media_index');
         }
@@ -61,6 +71,9 @@ class SocialMediaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->appDataManager->reloadData();
+
+            $this->addFlash('success',"Réseau social : ".$socialMedia->getNom()."Modifié avec succès" );
 
             return $this->redirectToRoute('social_media_index');
         }
@@ -79,6 +92,8 @@ class SocialMediaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($socialMedia);
             $entityManager->flush();
+            $this->appDataManager->reloadData();
+
         }
 
         return $this->redirectToRoute('social_media_index');

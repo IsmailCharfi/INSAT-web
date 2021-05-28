@@ -34,6 +34,8 @@ class DownloadController extends AbstractController
             $entityManager->persist($download);
             $entityManager->flush();
 
+            $this->addFlash('success',"Téléchargement : ".$download->getTitre()."ajouté avec succès" );
+
             return $this->redirectToRoute('download_index');
         }
 
@@ -61,6 +63,8 @@ class DownloadController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success',"Téléchargement : ".$download->getTitre()."modifié avec succès" );
 
             return $this->redirectToRoute('download_index');
         }

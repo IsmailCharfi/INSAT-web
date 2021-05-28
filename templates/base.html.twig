@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="{% block htmlCss %}{% endblock %}">
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -45,7 +45,25 @@
                                     <li><a class="nav-link" href="/documents">Documents Utiles</a></li>
                                 </ul>
                             </li>
+                            {% if  userManager.isAuthenticated() %}
+                                <li class="dropdown"><a class="nav-link"><i class="x2"><iconify-icon data-icon="ic:sharp-account-circle"></iconify-icon></i>Mon Compte<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
+                                     {%  set userMenu = userManager.getUserMenu() %}
+                                    <ul class="user-menu user-menu-{{ userMenu.getColumns() }}">
+                                        {% for section in userMenu.sections %}
+                                            {% for item in section.menuItems %}
+                                                <li><a class="nav-link" href="{{ path(item.routeName, item.parameters) }}">{{ item.title }}</a></li>
+                                            {% endfor %}
+                                            <hr>
+                                        {% endfor %}
+                                        <li><a class="nav-link" href="/emplois">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a></li>
+                                        <li><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
                         </ul>
+                        {% if not userManager.isAuthenticated() %}
+                            <a id ="loginButton" href="#" class="log-in-btn" data-bs-toggle="modal" data-bs-target="#LogInModal">Connexion</a>
+                        {% endif %}
                         <i class="bi bi-list mobile-nav-btn"></i>
                         <div id="mySidenav" class="sidenav">
                             <i class="closebtn"><iconify-icon data-icon="line-md:arrow-close-right"></iconify-icon></i>
@@ -55,16 +73,18 @@
                             <a href="/actualites">Actualités</a>
                             <a href="/emplois">Emplois du temps</a>
                             <a href="/documents">Documents Utiles</a>
+                            {% if  userManager.isAuthenticated() %}
+                                {% for section in userMenu.sections %}
+                                    {% for item in section.menuItems %}
+                                        <a class="nav-link" href="{{ path(item.routeName, item.parameters) }}">{{ item.title }}</a>
+                                    {% endfor %}
+                                {% endfor %}
+                                <a class="nav-link" href="/emplois">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a>
+                                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a>
+                            {% endif %}
                         </div>
                     </nav>
-                    {% if not userManager.isAuthenticated() %}
-                    <a href="#" class="log-in-btn " data-bs-toggle="modal" data-bs-target="#LogInModal">Se connecter</a>
-                    {% else %}
 
-                            <div class="mb-3">
-                                 <a href="{{ path('app_logout') }}" class="log-in-btn " >Logout</a>
-                            </div>
-                    {% endif %}
 
                     <!-- ======= End Of NavBar ======= -->
                 </div>
@@ -148,7 +168,8 @@
             </a>
         {% endblock %}
 
-        {% block loginmodal %}
+        {% block loginModal %}
+        {% if not userManager.isAuthenticated() %}
             <!--===== Log in Modal ====-->
             <div class="modal fade" id="LogInModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -189,6 +210,7 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
         {% endblock %}
 
         {% block javascripts %}
@@ -203,5 +225,6 @@
             <!-- ======= Main JS File ======= -->
             <script src="{{asset('assets/js/main.js')}}"></script>
         {% endblock %}
+
     </body>
 </html>

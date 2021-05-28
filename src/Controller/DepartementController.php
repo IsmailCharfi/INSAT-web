@@ -34,6 +34,8 @@ class DepartementController extends AbstractController
             $entityManager->persist($departement);
             $entityManager->flush();
 
+            $this->addFlash('success',"Département : ".$departement->getNom()."ajouté avec succès" );
+
             return $this->redirectToRoute('departement_index');
         }
 
@@ -61,6 +63,8 @@ class DepartementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success',"Département : ".$departement->getNom()."modifié avec succès" );
 
             return $this->redirectToRoute('departement_index');
         }

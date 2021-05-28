@@ -1,6 +1,9 @@
 {% set title = 'Connexion' %}
 {% extends 'base.html.twig' %}
 
+{% block loginModal %}{% endblock %}
+{% block htmlCss %}login-form{% endblock %}
+
 {% block body %}
 <form method="post">
     {% if error %}

@@ -49,4 +49,24 @@ class HomePageController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/usermenu", name="userMenu")
+     */
+    public function loggedin(): Response
+    {
+        return $this->render('HomePage/user-menu.html.twig', [
+            'title' => 'Principal',
+        ]);
+    }
+
+    /**
+     * @Route("/underConstruction/{title}", name="underConstruction")
+     */
+    public function underConstruction($title): Response
+    {
+        return $this->render('HomePage/under-construction.html.twig', [
+            'title' => $title,
+        ]);
+    }
+
 }

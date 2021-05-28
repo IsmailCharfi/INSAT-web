@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Link;
 use App\Form\LinkType;
 use App\Repository\LinkRepository;
+use App\Service\AppDataManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/link')]
 class LinkController extends AbstractController
 {
+    private $appDataManager;
+
+    public function __consruct(AppDataManager $appDataManager)
+    {
+        $this->appDataManager = $appDataManager;
+    }
+
     #[Route('/', name: 'link_index', methods: ['GET'])]
     public function index(LinkRepository $linkRepository): Response
     {
@@ -33,6 +41,9 @@ class LinkController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();
+            $this->appDataManager->reloadData();
+
+            $this->addFlash('success',"Lien : ".$link->getNom()."ajouté avec succès" );
 
             return $this->redirectToRoute('link_index');
         }
@@ -62,6 +73,10 @@ class LinkController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->appDataManager->reloadData();
+
+            $this->addFlash('success',"Lien : ".$link->getNom()."modifié avec succès" );
+
 
             return $this->redirectToRoute('link_index');
         }
@@ -80,6 +95,7 @@ class LinkController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($link);
             $entityManager->flush();
+            $this->appDataManager->reloadData();
         }
 
         return $this->redirectToRoute('link_index');
