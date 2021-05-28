@@ -18,15 +18,31 @@
 
 
                     <div class="accordion" id="accordionExample2">
-                    {% for fil in filiere %}
+                    {% for fil,niveau in filieres %}
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ fil.filiere }}" aria-expanded="true" aria-controls="collapse{{ fil.filiere }}">
-                                    {{ fil.filiere }}
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ fil }}" aria-expanded="true" aria-controls="collapse{{ fil }}">
+                                    {{ fil }}
                                 </button>
                             </h2>
-                            <div id="collapse{{ fil.filiere }}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
+                            <div id="collapse{{ fil }}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
                                 <div class="accordion-body">
+
+                                    {% for key,niv in niveau %}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ niv }}" aria-expanded="true" aria-controls="collapse{{ niv }}">
+                                                    {{ niv }}
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{ niv }}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
+                                                <div class="accordion-body">
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
 
 
                                 </div>

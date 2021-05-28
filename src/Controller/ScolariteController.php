@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Filiere;
 use App\Form\ScolariteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +17,22 @@ class ScolariteController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository('App:Filiere');
         $filiere = $repository->findall();
+        $filieres=array();
+        foreach($filiere as $fil){
+            $niveau=$fil->getNiveaux();
+            $fila=$fil->getFiliere();
+            $fileres[$fila]=array();
+            foreach($niveau as $niv){
+                array_push($fileres[$fila],$niv->getNiveau());
+            }
+
+    }
+
+
 
         return $this->render('scolarite/index.html.twig', [
             'controller_name' => 'ScolariteController',
-            'filiere'=>$filiere
+            'filieres'=>$fileres
 
         ]);
     }
