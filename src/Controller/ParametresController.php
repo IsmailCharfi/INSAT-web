@@ -30,7 +30,11 @@ class ParametresController extends AbstractController
 
             $this->addFlash('success',"Paramètres modifiés avec succès" );
 
-            $appDataManager->reloadData();
+            try
+            {
+                $this->appDataManager->reloadData();
+            }catch (\Exception $exception){}
+
             $showForm = false;
 
         }

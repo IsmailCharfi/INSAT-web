@@ -9,6 +9,8 @@
                 <th>Titre</th>
                 <th>Date</th>
                 <th>Description</th>
+                <th>Photo</th>
+                <th>Document</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,17 +22,29 @@
                 <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
                 <td>{{ actualite.description }}</td>
                 <td>
-                    <a href="{{ path('actualite_show', {'id': actualite.id}) }}">show</a>
-                    <a href="{{ path('actualite_edit', {'id': actualite.id}) }}">edit</a>
+                    {% if actualite.photo is defined and actualite.photo %}
+                    <img class="list-img" src="{{ asset(actualite.photo.getFullUrl()) }}"/>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if actualite.doc is defined and actualite.doc %}
+                        <a target="_blank" href="{{ asset(actualite.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('actualite_show', {'id': actualite.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('actualite_edit', {'id': actualite.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('actualite_new') }}">Create new</a>
+    <a class="btn btn-primary form-btn" href="{{ path('actualite_new') }}">Create new</a>
 {% endblock %}

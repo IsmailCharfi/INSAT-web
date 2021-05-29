@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Actualite;
 use App\Form\ActualiteType;
 use App\Repository\ActualiteRepository;
+use App\Service\FileUploader;
+use App\Utilities\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/actualite')]
 class ActualiteController extends AbstractController
 {
+    private $fileUploader;
+
+    public function __construct(FileUploader $fileUploader)
+    {
+        $this->fileUploader = $fileUploader;
+    }
+
     #[Route('/', name: 'actualite_index', methods: ['GET'])]
     public function index(ActualiteRepository $actualiteRepository): Response
     {
@@ -31,6 +40,7 @@ class ActualiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->handleUploads($form, $actualite);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($actualite);
             $entityManager->flush();
@@ -61,7 +71,11 @@ class ActualiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->handleUploads($form, $actualite);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($actualite);
+            $entityManager->flush();
 
             return $this->redirectToRoute('actualite_index');
         }
@@ -83,5 +97,15 @@ class ActualiteController extends AbstractController
         }
 
         return $this->redirectToRoute('actualite_index');
+    }
+
+    private function handleUploads($form, $actualite){
+        $photo = FormHelper::handleUpload($form, 'image', $actualite->getPhoto(), $this->fileUploader);
+        $document = FormHelper::handleUpload($form, 'document', $actualite->getDoc(), $this->fileUploader);
+
+        if($photo)
+            $actualite->setPhoto($photo);
+        if($document)
+            $actualite->setDoc($document);
     }
 }

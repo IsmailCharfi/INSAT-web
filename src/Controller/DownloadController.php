@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Download;
 use App\Form\DownloadType;
 use App\Repository\DownloadRepository;
+use App\Service\FileUploader;
+use App\Utilities\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/download')]
 class DownloadController extends AbstractController
 {
+    private $fileUploader;
+
+    public function __construct(FileUploader $fileUploader)
+    {
+        $this->fileUploader = $fileUploader;
+    }
+
     #[Route('/', name: 'download_index', methods: ['GET'])]
     public function index(DownloadRepository $downloadRepository): Response
     {
@@ -30,11 +39,12 @@ class DownloadController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->handleUploads($form, $download);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($download);
             $entityManager->flush();
 
-            $this->addFlash('success',"Téléchargement : ".$download->getTitre()."ajouté avec succès" );
+            $this->addFlash('success',"Téléchargement : ".$download->getTitre()." ajouté avec succès" );
 
             return $this->redirectToRoute('download_index');
         }
@@ -51,7 +61,7 @@ class DownloadController extends AbstractController
     {
         return $this->render('download/show.html.twig', [
             'download' => $download,
-            'title' => 'Téléchargement'.$download->getTitre(),
+            'title' => 'Téléchargement : '.$download->getTitre(),
         ]);
     }
 
@@ -62,9 +72,12 @@ class DownloadController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->handleUploads($form, $download);
 
-            $this->addFlash('success',"Téléchargement : ".$download->getTitre()."modifié avec succès" );
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($download);
+            $entityManager->flush();
+            $this->addFlash('success',"Téléchargement : ".$download->getTitre()." modifié avec succès" );
 
             return $this->redirectToRoute('download_index');
         }
@@ -86,5 +99,13 @@ class DownloadController extends AbstractController
         }
 
         return $this->redirectToRoute('download_index');
+    }
+
+
+    private function handleUploads($form, $download){
+        $document = FormHelper::handleUpload($form, 'document', $download->getDoc(), $this->fileUploader);
+
+        if($document)
+            $download->setDoc($document);
     }
 }

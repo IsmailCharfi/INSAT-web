@@ -41,9 +41,10 @@ class LinkController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($link);
             $entityManager->flush();
-            $this->appDataManager->reloadData();
+            if($this->appDataManager)
+                $this->appDataManager->reloadData();
 
-            $this->addFlash('success',"Lien : ".$link->getNom()."ajouté avec succès" );
+            $this->addFlash('success',"Lien : ".$link->getNom()." ajouté avec succès" );
 
             return $this->redirectToRoute('link_index');
         }
@@ -73,10 +74,11 @@ class LinkController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->appDataManager->reloadData();
+            if($this->appDataManager)
+                $this->appDataManager->reloadData();
 
-            $this->addFlash('success',"Lien : ".$link->getNom()."modifié avec succès" );
 
+            $this->addFlash('success',"Lien : ".$link->getNom()." modifié avec succès" );
 
             return $this->redirectToRoute('link_index');
         }
@@ -95,7 +97,8 @@ class LinkController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($link);
             $entityManager->flush();
-            $this->appDataManager->reloadData();
+            if($this->appDataManager)
+                $this->appDataManager->reloadData();
         }
 
         return $this->redirectToRoute('link_index');

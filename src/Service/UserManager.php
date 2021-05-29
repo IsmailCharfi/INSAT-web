@@ -88,7 +88,8 @@ class UserManager
             $menuSection->addMenuItem(new MenuItem("Filière", "filiere_index"))
                         ->addMenuItem(new MenuItem("Niveaux", "niveau_index"))
                         ->addMenuItem(new MenuItem("Matiéres","matiere_index"))
-                        ->addMenuItem(new MenuItem("Départements", "departement_index"));
+                        ->addMenuItem(new MenuItem("Départements", "departement_index"))
+                        ->addMenuItem(new MenuItem("Matiere par classe", "matieres_index"));
 
             array_push($menuSections, $menuSection);
         }

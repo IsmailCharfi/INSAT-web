@@ -15,8 +15,8 @@
                 <td>{{ fiche_note.id }}</td>
                 <td>{{ fiche_note.nom }}</td>
                 <td>
-                    <a href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
-                    <a href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

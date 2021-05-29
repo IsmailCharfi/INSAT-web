@@ -21,8 +21,8 @@
                 <td>{{ social_media.cssClass }}</td>
                 <td>{{ social_media.url }}</td>
                 <td>
-                    <a href="{{ path('social_media_show', {'id': social_media.id}) }}">show</a>
-                    <a href="{{ path('social_media_edit', {'id': social_media.id}) }}">edit</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('social_media_show', {'id': social_media.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('social_media_edit', {'id': social_media.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('social_media_new') }}">Create new</a>
+    <a class="btn btn-primary form-btn" href="{{ path('social_media_new') }}">Create new</a>
 {% endblock %}

@@ -30,8 +30,6 @@ class AppDataManager
         $this->links = $this->manager->getRepository(Link::class)->findAll();
         $this->socialMedias = $this->manager->getRepository(SocialMedia::class)->findAll();
 
-        $this->parametres->formatAdresse();
-
         return $this;
     }
 

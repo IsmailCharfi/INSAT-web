@@ -34,7 +34,7 @@ class MatiereController extends AbstractController
             $entityManager->persist($matiere);
             $entityManager->flush();
 
-            $this->addFlash('success',"Matiére : ".$matiere->getNom()."ajouté avec succès" );
+            $this->addFlash('success',"Matiére : ".$matiere->getNom()." ajouté avec succès" );
 
             return $this->redirectToRoute('matiere_index');
         }
@@ -64,7 +64,7 @@ class MatiereController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success',"Matiére : ".$matiere->getNom()."modifié avec succès" );
+            $this->addFlash('success',"Matiére : ".$matiere->getNom()." modifié avec succès" );
 
             return $this->redirectToRoute('matiere_index');
         }

@@ -42,7 +42,7 @@ class SocialMediaController extends AbstractController
             $entityManager->flush();
             $this->appDataManager->reloadData();
 
-            $this->addFlash('success',"Réseau social : ".$socialMedia->getNom()."ajouté avec succès" );
+            $this->addFlash('success',"Réseau social : ".$socialMedia->getNom()." ajouté avec succès" );
 
             return $this->redirectToRoute('social_media_index');
         }
@@ -72,8 +72,7 @@ class SocialMediaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->appDataManager->reloadData();
-
-            $this->addFlash('success',"Réseau social : ".$socialMedia->getNom()."Modifié avec succès" );
+            $this->addFlash('success',"Réseau social : ".$socialMedia->getNom()." modifié avec succès" );
 
             return $this->redirectToRoute('social_media_index');
         }
@@ -92,8 +91,10 @@ class SocialMediaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($socialMedia);
             $entityManager->flush();
-            $this->appDataManager->reloadData();
-
+            try
+            {
+                $this->appDataManager->reloadData();
+            }catch (\Exception $exception){}
         }
 
         return $this->redirectToRoute('social_media_index');

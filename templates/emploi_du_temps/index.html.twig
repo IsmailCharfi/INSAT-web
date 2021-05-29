@@ -6,6 +6,8 @@
             <tr>
                 <th>Id</th>
                 <th>AnneeScolaire</th>
+                <th>Filière</th>
+                <th>Document</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -14,18 +16,26 @@
             <tr>
                 <td>{{ emploi_du_temp.id }}</td>
                 <td>{{ emploi_du_temp.anneeScolaire }}</td>
+                <td>{{ emploi_du_temp.filiere.filiere }}</td>
                 <td>
-                    <a href="{{ path('emploi_du_temps_show', {'id': emploi_du_temp.id}) }}">show</a>
-                    <a href="{{ path('emploi_du_temps_edit', {'id': emploi_du_temp.id}) }}">edit</a>
+                    {% if emploi_du_temp.doc is defined and emploi_du_temp.doc %}
+                        <a target="_blank" href="{{ asset(emploi_du_temp.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('emploi_du_temps_show', {'id': emploi_du_temp.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('emploi_du_temps_edit', {'id': emploi_du_temp.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('emploi_du_temps_new') }}">Create new</a>
+    <a class="btn btn-primary form-btn" href="{{ path('emploi_du_temps_new') }}">Create new</a>
 {% endblock %}

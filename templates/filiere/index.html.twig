@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'table.html.twig' %}
 
 {% block body %}
 
@@ -18,8 +18,8 @@
                 <td>{{ filiere.filiere }}</td>
                 <td>{{ filiere.ordre }}</td>
                 <td>
-                    <a href="{{ path('filiere_show', {'id': filiere.id}) }}">show</a>
-                    <a href="{{ path('filiere_edit', {'id': filiere.id}) }}">edit</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('filiere_show', {'id': filiere.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('filiere_edit', {'id': filiere.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -30,6 +30,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('filiere_new') }}">Create new</a>
+    <a class="btn btn-primary form-btn" href="{{ path('filiere_new') }}">Create new</a>
 
 {% endblock %}

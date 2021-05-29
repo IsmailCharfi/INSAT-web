@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\EmploiDuTemps;
 use App\Form\EmploiDuTempsType;
 use App\Repository\EmploiDuTempsRepository;
+use App\Service\FileUploader;
+use App\Utilities\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/emploi/du/temps')]
 class EmploiDuTempsController extends AbstractController
 {
+
+    private $fileUploader;
+
+    public function __construct(FileUploader $fileUploader)
+    {
+        $this->fileUploader = $fileUploader;
+    }
+
     #[Route('/', name: 'emploi_du_temps_index', methods: ['GET'])]
     public function index(EmploiDuTempsRepository $emploiDuTempsRepository): Response
     {
@@ -30,11 +40,12 @@ class EmploiDuTempsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->handleUploads($form, $emploiDuTemp);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($emploiDuTemp);
             $entityManager->flush();
 
-            $this->addFlash('success',"Emploi du temps : ".$emploiDuTemp->getFiliere()."ajouté avec succès" );
+            $this->addFlash('success',"Emploi du temps : ".$emploiDuTemp->getFiliere()->getFiliere()." ajouté avec succès" );
 
             return $this->redirectToRoute('emploi_du_temps_index');
         }
@@ -51,7 +62,7 @@ class EmploiDuTempsController extends AbstractController
     {
         return $this->render('emploi_du_temps/show.html.twig', [
             'emploi_du_temp' => $emploiDuTemp,
-            'title' => 'Emploi du temps : '.$emploiDuTemp->getFiliere(),
+            'title' => 'Emploi du temps : '.$emploiDuTemp->getFiliere()->getFiliere(),
         ]);
     }
 
@@ -62,9 +73,13 @@ class EmploiDuTempsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success',"Emploi du temps : ".$emploiDuTemp->getFiliere()."modifié avec succès" );
+            $this->handleUploads($form, $emploiDuTemp);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($emploiDuTemp);
+            $entityManager->flush();
+
+            $this->addFlash('success',"Emploi du temps : ".$emploiDuTemp->getFiliere()->getFiliere()." modifié avec succès" );
 
             return $this->redirectToRoute('emploi_du_temps_index');
         }
@@ -86,5 +101,12 @@ class EmploiDuTempsController extends AbstractController
         }
 
         return $this->redirectToRoute('emploi_du_temps_index');
+    }
+
+    private function handleUploads($form, $emploiDuTemp){
+        $document = FormHelper::handleUpload($form, 'document', $emploiDuTemp->getDoc(), $this->fileUploader);
+
+        if($document)
+            $emploiDuTemp->setDoc($document);
     }
 }

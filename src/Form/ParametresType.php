@@ -13,7 +13,9 @@ class ParametresType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adresse', TextareaType::class)
+            ->add('adresse', TextareaType::class, [
+                'attr' => ['rows' => 3],
+            ])
             ->add('tel')
             ->add('fax')
             ->add('email')

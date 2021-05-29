@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FiliereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +44,7 @@ class Filiere
      * @ORM\ManyToMany(targetEntity=Niveau::class, inversedBy="filieres")
      */
     private $niveaux;
+
 
     public function __construct()
     {
@@ -162,5 +164,39 @@ class Filiere
         $this->niveaux->removeElement($niveau);
 
         return $this;
+    }
+
+    public function getSelectedNiveaux(): ?array
+    {
+        $niveaux = array();
+        foreach($this->niveaux as $niveau)
+        {
+            array_push($niveaux, $niveau->getId());
+        }
+        return  $niveaux;
+    }
+
+    public function setSelectedNiveaux(array $niveaux, $manager)
+    {
+            $toRemove = $this->niveaux->filter(function ($el) use ($niveaux){
+                return !in_array($el->getId(), $niveaux);
+            });
+
+            foreach ($toRemove as $itemToRemove)
+            {
+                $this->removeNiveau($itemToRemove);
+            }
+
+            $allNiveaux = $manager->getRepository(Niveau::class)->findAll();
+
+            foreach ($niveaux as $niveau)
+            {
+                $toAdd = array_filter($allNiveaux, function ($el) use ($niveau){
+                    return $el->getId() == $niveau;
+                });
+                if(count($toAdd) > 0)
+                $this->addNiveau(array_values($toAdd)[0]);
+            }
+
     }
 }

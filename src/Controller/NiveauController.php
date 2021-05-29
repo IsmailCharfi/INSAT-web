@@ -34,7 +34,7 @@ class NiveauController extends AbstractController
             $entityManager->persist($niveau);
             $entityManager->flush();
 
-            $this->addFlash('success',"Niveau : ".$niveau->getNiveau()."ajouté avec succès" );
+            $this->addFlash('success',"Niveau : ".$niveau->getNiveauName()." ajouté avec succès" );
 
             return $this->redirectToRoute('niveau_index');
         }
@@ -64,7 +64,7 @@ class NiveauController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success',"Niveau modifié avec succès" );
+            $this->addFlash('success',"Niveau : " . $niveau->getNiveauName()." modifié avec succès" );
 
             return $this->redirectToRoute('niveau_index');
         }

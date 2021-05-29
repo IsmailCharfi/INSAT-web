@@ -34,7 +34,7 @@ class FiliereController extends AbstractController
             $entityManager->persist($filiere);
             $entityManager->flush();
 
-            $this->addFlash('success',"Filiére : ".$filiere->getFiliere()."ajouté avec succès" );
+            $this->addFlash('success',"Filiére : ".$filiere->getFiliere()." ajouté avec succès" );
 
             return $this->redirectToRoute('filiere_index');
         }
@@ -64,7 +64,7 @@ class FiliereController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success',"Filiére : ".$filiere->getFiliere()."modifié avec succès" );
+            $this->addFlash('success',"Filiére : ".$filiere->getFiliere()." modifié avec succès" );
 
             return $this->redirectToRoute('filiere_index');
         }

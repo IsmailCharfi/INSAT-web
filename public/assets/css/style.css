@@ -236,8 +236,12 @@ section {
 }
 
 a i.x2{
-    font-size: 25px;
+    font-size: 24px;
     margin-right: 5px;
+}
+
+a i.x4{
+    font-size: 48px;
 }
 
 .navbar a:hover,
@@ -445,7 +449,7 @@ ul.user-menu-4{
 ******************************************************/
 
 header .log-in-btn,
-.modal .log-in-btn{
+#LogInModal .log-in-btn{
     margin-left: 30px;
     background: #e03a3c;
     color: #fff;
@@ -459,7 +463,7 @@ header .log-in-btn,
 }
 
 header .log-in-btn:hover,
-.modal .log-in-btn:hover{
+#LogInModal .log-in-btn:hover{
     background: #111111;
     color: #fff;
 }
@@ -470,14 +474,14 @@ html.login-form #loginButton{
 
 @media (min-width:1600px) {
     header  .log-in-btn,
-    .modal .log-in-btn{
+    #LogInModal .log-in-btn{
         font-size: 20px;
     }
 }
 
 @media (max-width: 992px) {
     header .log-in-btn,
-    .modal .log-in-btn{
+    #LogInModal .log-in-btn{
         margin-right: 15px;
         font-weight: 550;
         padding: 6px 12px;
@@ -486,7 +490,7 @@ html.login-form #loginButton{
 
 @media (max-width: 600px) {
     header .log-in-btn,
-    .modal .log-in-btn{
+    #LogInModal .log-in-btn{
         font-size: 12px;
         padding: 6px 5px;
     }
@@ -494,7 +498,7 @@ html.login-form #loginButton{
 
 @media (max-width: 340px) {
     header .log-in-btn,
-    .modal .log-in-btn{
+    #LogInModal .log-in-btn{
         font-size: 10px;
         padding: 6px 2px;
     }
@@ -1399,4 +1403,19 @@ div.clubs:active {
 /* Add a background color on hover */
 .btn-group button:hover {
     background-color: #e03a3c;
+}
+
+/*///////////////////////////*/
+div.form-group.row{
+    margin-bottom: 15px;
+}
+
+.form-btn{
+    min-width: 110px;
+    margin-bottom: 10px;
+}
+/*****************************/
+
+img.list-img{
+    width: 100px;
 }

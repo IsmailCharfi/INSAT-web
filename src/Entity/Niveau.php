@@ -58,7 +58,13 @@ class Niveau
 
     public function getNiveau(): ?int
     {
-        return $this->niveau;
+
+        return $this->niveau ;
+    }
+
+    public function getNiveauName(): ?string
+    {
+        return $this->niveau == 1 ? $this->niveau."ére année" : $this->niveau."éme année" ;
     }
 
     public function setNiveau(int $niveau): self

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Download;
+use App\Utilities\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,9 +14,9 @@ class DownloadType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('ordre')
-            ->add('doc')
-        ;
+            ->add('ordre');
+        FormHelper::addPdfFileInput($builder, 'document', 'Document');
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

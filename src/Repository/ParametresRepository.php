@@ -22,7 +22,7 @@ class ParametresRepository extends ServiceEntityRepository
     public function findCurrentParameters()
     {
         $all = $this->findAll();
-        return count($all) >= 1 ? $all[0] : new Parametres();
+        return count($all) > 0 ? $all[0] : new Parametres();
     }
 
     // /**
