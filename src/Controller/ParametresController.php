@@ -14,11 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/parametres')]
 class ParametresController extends AbstractController
 {
+
     #[Route('/edit', name: 'parametres_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, AppDataManager $appDataManager): Response
     {
         $parametres = $this->getDoctrine()->getRepository(Parametres::class)->findCurrentParameters();
-
         $form = $this->createForm(ParametresType::class, $parametres);
         $form->handleRequest($request);
         $showForm = true;
@@ -36,6 +36,7 @@ class ParametresController extends AbstractController
             }catch (\Exception $exception){}
 
             $showForm = false;
+            return $this->show($parametres);
 
         }
             return $this->render('parametres/edit.html.twig', [
@@ -44,5 +45,14 @@ class ParametresController extends AbstractController
                 'title' => 'Modifier un paramètre',
                 'showForm' => $showForm,
             ]);
+    }
+
+    #[Route('/{id}', name: 'parametres_show', methods: ['POST'])]
+    public function show(Parametres $parametres): Response
+    {
+        return $this->render('parametres/show.html.twig', [
+            'parametres' => $parametres,
+            'title' => 'Paramétres du site',
+        ]);
     }
 }

@@ -16,10 +16,14 @@
                 <td>{{ emploi_du_temp.filiere.filiere}}</td>
             </tr>
             <tr>
+                <th>Semestre</th>
+                <td>{{ emploi_du_temp.semestre}}</td>
+            </tr>
+            <tr>
                 <th>Document</th>
                 <td>
-                    {% if download.doc is defined and download.doc %}
-                        <a target="_blank" href="{{ asset(download.doc.getFullUrl()) }}">
+                    {% if emploi_du_temp.doc is defined and emploi_du_temp.doc %}
+                        <a target="_blank" href="{{ asset(emploi_du_temp.doc.getFullUrl()) }}">
                             <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
                         </a>
                     {% endif %}

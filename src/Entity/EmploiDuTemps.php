@@ -28,8 +28,15 @@ class EmploiDuTemps
      */
     private $doc;
 
+
+
     /**
-     * @ORM\OneToOne(targetEntity=Filiere::class, cascade={"persist", "remove"})
+     * @ORM\Column(type="integer")
+     */
+    private $semestre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Filiere::class, inversedBy="emploiDuTemps")
      * @ORM\JoinColumn(nullable=false)
      */
     private $filiere;
@@ -71,6 +78,18 @@ class EmploiDuTemps
     public function setFiliere(Filiere $filiere): self
     {
         $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    public function getSemestre(): ?int
+    {
+        return $this->semestre;
+    }
+
+    public function setSemestre(int $semestre): self
+    {
+        $this->semestre = $semestre;
 
         return $this;
     }

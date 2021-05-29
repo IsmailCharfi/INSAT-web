@@ -45,12 +45,18 @@ class Filiere
      */
     private $niveaux;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EmploiDuTemps::class, mappedBy="filiere", orphanRemoval=true)
+     */
+    private $emploiDuTemps;
+
 
     public function __construct()
     {
         $this->matiereNiveauFilieres = new ArrayCollection();
         $this->etudiants = new ArrayCollection();
         $this->niveaux = new ArrayCollection();
+        $this->emploiDuTemps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,5 +204,35 @@ class Filiere
                 $this->addNiveau(array_values($toAdd)[0]);
             }
 
+    }
+
+    /**
+     * @return Collection|EmploiDuTemps[]
+     */
+    public function getEmploiDuTemps(): Collection
+    {
+        return $this->emploiDuTemps;
+    }
+
+    public function addEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if (!$this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps[] = $emploiDuTemp;
+            $emploiDuTemp->setFiliere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if ($this->emploiDuTemps->removeElement($emploiDuTemp)) {
+            // set the owning side to null (unless already changed)
+            if ($emploiDuTemp->getFiliere() === $this) {
+                $emploiDuTemp->setFiliere(null);
+            }
+        }
+
+        return $this;
     }
 }

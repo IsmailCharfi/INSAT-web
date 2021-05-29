@@ -44,6 +44,19 @@ class EmploiDuTempsType extends AbstractType
                 'setter' => function (EmploiDuTemps $emploi, $filiere, FormInterface $form) {
                     $emploi->setFiliere($this->manager->getRepository(Filiere::class)->find($filiere));
                 },
+            ])
+            ->add('semestre',ChoiceType::class, [
+                'choices' => [
+                    'semestre 1' => '1',
+                    'semestre 2' => '2'
+                ],
+                'expanded' => true,
+                'getter' => function (EmploiDuTemps $emploi, FormInterface $form): int {
+                    return $emploi->getSemestre() ?? 0;
+                },
+                'setter' => function (EmploiDuTemps $emploi, $semestre, FormInterface $form) {
+                    $emploi->setSemestre($semestre);
+                },
             ]);
 
         FormHelper::addPdfFileInput($builder, 'document', 'Document');

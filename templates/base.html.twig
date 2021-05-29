@@ -79,6 +79,7 @@
                                         <a class="nav-link" href="{{ path(item.routeName, item.parameters) }}">{{ item.title }}</a>
                                     {% endfor %}
                                 {% endfor %}
+                                <hr>
                                 <a class="nav-link" href="/emplois">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a>
                                 <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a>
                             {% endif %}

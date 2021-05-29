@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\ActualiteRepository;
+use App\Repository\EmploiDuTempsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,9 +24,10 @@ class HomePageController extends AbstractController
     /**
      * @Route("/actualites", name="actualites")
      */
-    public function actualites(): Response
+    public function actualites(ActualiteRepository $actualiteRepository): Response
     {
         return $this->render('HomePage/actualites.html.twig', [
+            'actualites' => $actualiteRepository->findAll(),
             'title' => "Les Actualités",
         ]);
     }
@@ -32,9 +35,11 @@ class HomePageController extends AbstractController
     /**
      * @Route("/emplois", name="emplois")
      */
-    public function emplois(): Response
+    public function emplois(EmploiDuTempsRepository $emploiDuTempsRepository): Response
     {
         return $this->render('HomePage/emplois.html.twig', [
+            'sem1' => $emploiDuTempsRepository->findBy(["semestre"=>1]),
+            'sem2' => $emploiDuTempsRepository->findBy(["semestre"=>2]),
             'title' => "Emplois du temps",
         ]);
     }
