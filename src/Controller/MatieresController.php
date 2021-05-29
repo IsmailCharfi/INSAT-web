@@ -84,11 +84,15 @@ class MatieresController extends AbstractController
     public function delete(Request $request, MatiereNiveauFiliere $matiereNiveauFiliere): Response
     {
         if ($this->isCsrfTokenValid('delete'.$matiereNiveauFiliere->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Matière : ". $matiereNiveauFiliere->getMatiere()->getNom()
+                . " - " . $matiereNiveauFiliere->getFiliere()->getFiliere()
+                . $matiereNiveauFiliere->getNiveau()->getNiveau() . " est supprimée" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($matiereNiveauFiliere);
             $entityManager->flush();
         }
-        $this->addFlash('success', "Matiére");
 
         return $this->redirectToRoute('matieres_index');
     }

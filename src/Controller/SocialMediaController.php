@@ -88,6 +88,9 @@ class SocialMediaController extends AbstractController
     public function delete(Request $request, SocialMedia $socialMedia): Response
     {
         if ($this->isCsrfTokenValid('delete'.$socialMedia->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Réseau sociale : ". $socialMedia->getNom()." est supprimé" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($socialMedia);
             $entityManager->flush();

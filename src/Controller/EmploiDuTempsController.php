@@ -95,6 +95,10 @@ class EmploiDuTempsController extends AbstractController
     public function delete(Request $request, EmploiDuTemps $emploiDuTemp): Response
     {
         if ($this->isCsrfTokenValid('delete'.$emploiDuTemp->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Emploi : ". $emploiDuTemp->getFiliere()->getFiliere()
+                . " semestre " . $emploiDuTemp->getSemestre()." est supprimé" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($emploiDuTemp);
             $entityManager->flush();

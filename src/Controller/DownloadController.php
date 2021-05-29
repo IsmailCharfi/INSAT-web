@@ -93,6 +93,9 @@ class DownloadController extends AbstractController
     public function delete(Request $request, Download $download): Response
     {
         if ($this->isCsrfTokenValid('delete'.$download->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Téléchargement : ". $download->getTitre()." est supprimée" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($download);
             $entityManager->flush();

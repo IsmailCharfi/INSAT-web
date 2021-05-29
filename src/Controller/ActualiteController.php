@@ -94,6 +94,8 @@ class ActualiteController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($actualite);
             $entityManager->flush();
+
+            $this->addFlash('warning',"votre actualité est supprimée" );
         }
 
         return $this->redirectToRoute('actualite_index');

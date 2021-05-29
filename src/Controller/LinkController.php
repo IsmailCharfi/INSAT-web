@@ -94,6 +94,9 @@ class LinkController extends AbstractController
     public function delete(Request $request, Link $link): Response
     {
         if ($this->isCsrfTokenValid('delete'.$link->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Lien : ". $link->getNom()." est supprimé" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($link);
             $entityManager->flush();

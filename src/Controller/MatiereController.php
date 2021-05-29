@@ -80,6 +80,9 @@ class MatiereController extends AbstractController
     public function delete(Request $request, Matiere $matiere): Response
     {
         if ($this->isCsrfTokenValid('delete'.$matiere->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Matière : ". $matiere->getNom()." est supprimée" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($matiere);
             $entityManager->flush();

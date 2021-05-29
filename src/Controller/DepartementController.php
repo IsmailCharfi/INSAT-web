@@ -80,6 +80,9 @@ class DepartementController extends AbstractController
     public function delete(Request $request, Departement $departement): Response
     {
         if ($this->isCsrfTokenValid('delete'.$departement->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Département : ". $departement->getNom()." est supprimée" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($departement);
             $entityManager->flush();

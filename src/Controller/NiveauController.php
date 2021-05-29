@@ -80,6 +80,9 @@ class NiveauController extends AbstractController
     public function delete(Request $request, Niveau $niveau): Response
     {
         if ($this->isCsrfTokenValid('delete'.$niveau->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Niveau : ". $niveau->getNiveauName(). " est supprimé" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($niveau);
             $entityManager->flush();
