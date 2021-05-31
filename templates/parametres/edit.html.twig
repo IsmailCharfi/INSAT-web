@@ -1,9 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-
-    {% if showForm is defined and showForm %}
-        {{ include('parametres/_form.html.twig', {'button_label': 'Update'}) }}
-    {% endif %}
-
-{% endblock %}

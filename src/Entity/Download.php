@@ -29,7 +29,7 @@ class Download
 
     /**
      * @ORM\OneToOne(targetEntity=Document::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $doc;
 

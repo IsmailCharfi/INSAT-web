@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="{% block htmlCss %}{% endblock %}">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <!-- ======= Favicons ======= -->
         <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
-        <title>{% block title %}INSAT - {{ title }}{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
 
         {% block stylesheets %}
             <!-- ======= Google Fonts ======= -->
@@ -33,93 +33,45 @@
                         <a href="/"><img id="logo" src="{{asset('assets/img/favicon.png')}}" /> <img src="{{asset('assets/img/logo_v4.jpg')}}"></a>
                     </div>
                     <!-- ======= NavBar ======= -->
-                    {{ include('navbar.html.twig') }}
+                    <nav id="navbar" class="navbar order-last order-lg-0">
+                        <ul>
+                            <li><a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a></li>
+                            <li><a class="nav-link scrollto" href="/#tabs">A propos</a></li>
+                            <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+                            <li class="dropdown"><a class="nav-link">Services<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
+                                <ul>
+                                    <li><a class="nav-link" href="/actualites">Actualités</a></li>
+                                    <li><a class="nav-link" href="/emplois">Emplois du temps</a></li>
+                                    <li><a class="nav-link" href="/documents">Documents Utiles</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <i class="bi bi-list mobile-nav-btn"></i>
+                        <div id="mySidenav" class="sidenav">
+                            <i class="closebtn"><iconify-icon data-icon="line-md:arrow-close-right"></iconify-icon></i>
+                            <a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a>
+                            <a class="nav-link scrollto" href="/#tabs">A propos</a>
+                            <a class="nav-link scrollto" href="/#contact">Contact</a>
+                            <a href="/actualites">Actualités</a>
+                            <a href="/emplois">Emplois du temps</a>
+                            <a href="/documents">Documents Utiles</a>
+                        </div>
+                    </nav>
+                    {% if not userManager.isAuthenticated() %}
+                    <a href="#" class="log-in-btn " data-bs-toggle="modal" data-bs-target="#LogInModal">Se connecter</a>
+                    {% else %}
+
+                            <div class="mb-3">
+                                 <a href="{{ path('app_logout') }}" class="log-in-btn " >Logout</a>
+                            </div>
+                    {% endif %}
+
                     <!-- ======= End Of NavBar ======= -->
                 </div>
             </header>
         {% endblock %}
 
-        <div class="container-fluid outer-content">
-            {% block subHeader%}
-            <div class="main-title">
-                <div class="container">
-                    <h1>{{ title }}</h1>
-                </div>
-            </div>
-            {% endblock %}
-
-            {% block flashMessages %}
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
-                        <div class="container">
-                            {{ message }}
-                        </div>
-                    </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endblock %}
-
-            <div class="container inner-content">
-            {% block body %}
-
-            {% endblock %}
-            </div>
-        </div>
-
-        {% block footer %}
-            <footer id="footer">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
-
-                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
-                                <h3><span>In</span>sat</h3>
-                                <p>
-                                    {{ appDataManager.parametres.getformattedAdresse() | raw}}
-                                </p>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
-                                <h4>Contact</h4>
-                                <p>
-                                    <strong>Tél :</strong>{{ appDataManager.parametres.tel | raw}}<br>
-                                    <strong>Fax :</strong>{{  appDataManager.parametres.fax | raw}}<br>
-                                    <strong>Email :</strong>{{  appDataManager.parametres.email | raw}}<br>
-                                </p>
-                            </div>
-
-                            <div class="col-lg-2 col-md-6  footer-element footer-links">
-                                <h4>Liens Utiles</h4>
-                                <ul>
-                                    {% for link in appDataManager.links %}
-                                        <li>
-                                            <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
-                                            </i> <a href="{{ link.url | raw}}" target="_blank">{{ link.nom | raw}}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-
-                            <div class=" col-lg-4 col-md-6  footer-element social-links ">
-                                <h4>Suivez Nous</h4><br>
-                                {% for sm in appDataManager.socialMedias %}
-                                    <a href="{{ sm.url }}" target="_blank" class="{{ sm.cssClass }}"><i><iconify-icon data-icon="{{ sm.icon }}"></iconify-icon></i></a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-
-            <!-- ======= Back To Top Button ======= -->
-            <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-                <i><iconify-icon data-icon="bi:arrow-up-short"></iconify-icon></i>
-            </a>
-        {% endblock %}
-
-        {% block loginModal %}
-        {% if not userManager.isAuthenticated() %}
+        {% block loginmodal %}
             <!--===== Log in Modal ====-->
             <div class="modal fade" id="LogInModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -160,7 +112,71 @@
                     </div>
                 </div>
             </div>
-        {% endif %}
+        {% endblock %}
+
+        {% block body %}
+
+        {% endblock %}
+
+        {% block footer %}
+            <footer id="footer">
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
+                                <h3><span>In</span>sat</h3>
+                                <p>
+                                    Centre Urbain Nord<br> BP 676 - 1080 Tunis Cedex<br> Tunisie
+                                </p>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
+                                <h4>Contact</h4>
+                                <p>
+                                    <strong>Tél :</strong> + 216 71 70 38 29<br>
+                                    <strong>Fax :</strong> + 216 71 70 43 29<br>
+                                    <strong>Email :</strong> contact@insat.u-carthage.tn<br>
+                                </p>
+                            </div>
+
+                            <div class="col-lg-2 col-md-6  footer-element footer-links">
+                                <h4>Liens Utiles</h4>
+                                <ul>
+                                    <li>
+                                        <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                        </i> <a href="http://www.insat.rnu.tn/" target="_blank">insat.rnu</a>
+                                    </li>
+                                    <li>
+                                        <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                        </i> <a href="http://www.mes.tn/" target="_blank">Ministère</a>
+                                    </li>
+                                    <li>
+                                        <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                        </i> <a href="http://www.ucar.rnu.tn/" target="_blank">Univ carthage</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class=" col-lg-4 col-md-6  footer-element social-links ">
+                                <h4>Suivez Nous</h4><br>
+                                <a href="https://www.facebook.com/insat.rnu.tn" target="_blank" class="facebook"><i><iconify-icon data-icon="ant-design:facebook-filled"></iconify-icon></i></a>
+                                <a href="https://www.linkedin.com/school/national-institute-of-applied-science-and-technology" target="_blank" class="linkedin"><i><iconify-icon data-icon="cib:linkedin-in"></iconify-icon></i></a>
+                                <a href="https://twitter.com/INSAT92473558" target="_blank" class="twitter"><i><iconify-icon data-icon="akar-icons:twitter-fill"></iconify-icon></i></a>
+                                <a href="https://www.instagram.com/insat478" target="_blank" class="instagram">
+                                    <iconify-icon data-icon="akar-icons:instagram-fill"></iconify-icon>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- ======= Back To Top Button ======= -->
+            <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+                <i><iconify-icon data-icon="bi:arrow-up-short"></iconify-icon></i>
+            </a>
         {% endblock %}
 
         {% block javascripts %}
@@ -175,6 +191,5 @@
             <!-- ======= Main JS File ======= -->
             <script src="{{asset('assets/js/main.js')}}"></script>
         {% endblock %}
-
     </body>
 </html>

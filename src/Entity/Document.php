@@ -20,16 +20,33 @@ class Document
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $url;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $type;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
     }
 
     public function getUrl(): ?string
@@ -54,9 +71,5 @@ class Document
         $this->type = $type;
 
         return $this;
-    }
-    public function getFullUrl(): string
-    {
-        return 'uploads/' . $this->url;
     }
 }

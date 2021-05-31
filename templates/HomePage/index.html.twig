@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ title }}{% endblock %}
 
-{% block subHeader %}
+{% block body %}
     <!-- ======= Welcome Section ======= -->
     <section id="welcome">
         <div id="welcome-carousel" class="carousel slide" data-bs-ride="carousel" data-interval="5000">
@@ -35,19 +36,17 @@
             </button>
         </div>
         <div class="carousel-caption px-auto" data-aos="zoom-out" data-aos-delay="50">
-            <h1>L'institut National des Sciences Appliquées et de Technologie<br></h1>
+            <h1>L'Institut National des Sciences Appliquées et de Technologie<br></h1>
             <a href="#tabs" class="btn-get-started scrollto">A propos ></a>
         </div>
     </section>
     <!-- ======= End of Welcome Section ======= -->
-{% endblock %}
 
-{% block body %}
     <!-- ======= Main ======= -->
     <main id="main">
         <!-- ======= A propos Section ======= -->
         <section id="tabs" class="tabs">
-            <div  data-aos="fade-up">
+            <div class="container" data-aos="fade-up">
                 <ul class="nav nav-tabs row d-flex">
                     <li id="tab1" class="nav-item col-3">
                         <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
@@ -123,7 +122,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" tab-pane" id="tab-2">
+                    <div class="tab-pane" id="tab-2">
                         <h3>Cycle préparatoire intégré :</h3>
                         <br>
                         <p>
@@ -131,7 +130,7 @@
                             sur dossier, 3 ans de cycle d’ingénieur. En commençant par 2 branches pour la 1ére année du préparatoire intégré :
                         </p>
                         <div class="row">
-                            <div id="filieres" class="col-xl-5 col-lg-12 " data-aos="fade-up" data-aos-delay="200">
+                            <div id="filieres" class="col-xl-6 col-lg-12 " data-aos="fade-up" data-aos-delay="200">
                                 <ul>
                                     <li><i><iconify-icon data-icon="ic:outline-science"></iconify-icon></i> Chimie et biologie appliquée (CBA).</li>
                                     <li><i><iconify-icon data-icon="tabler:math-function"></iconify-icon></i> Math-Physique-Informatique (MPI).</li>
@@ -146,7 +145,7 @@
                                     <li><i><iconify-icon data-icon="si-glyph:network-2"></iconify-icon></iconify-icon></i> Réseaux et Télécommunication (RT) </li>
                                 </ul>
                             </div>
-                            <div id="diagram" class="col-xl-7 col-lg-12 " data-aos="fade-up" data-aos-delay="200">
+                            <div id="diagram" class="col-xl-6 col-lg-12 " data-aos="fade-up" data-aos-delay="200">
                                 <img id="cba" src="{{asset('assets/img/CBA.jpg')}}" class="zoomable">
                                 <img id="mpi" src="{{asset('assets/img/MPI.jpg')}}" class="zoomable">
 
@@ -161,7 +160,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane " id="tab-3">
+                    <div class="tab-pane container" id="tab-3">
                         <div class="row">
                             <div class="col-md-3 col-ms-12 ">
                                 <div id="counts" class="container counts" data-aos="fade-up">
@@ -184,7 +183,7 @@
                                 </div>
                             </div>
                             <div class="col-md-9 col-ms-12">
-                                <div id="dep" class="dep" data-aos="fade-up">
+                                <div id="dep" class="container dep" data-aos="fade-up">
                                     <ul class="dep-list accordion" data-aos="fade-up">
                                         <li>
                                             <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#dep1">
@@ -251,7 +250,7 @@
                     </div>
                 </div>
             </div>
-            <div id="clubs" class="clubs">
+            <div id="clubs" class="container clubs">
                 <div class="clubs-slider swiper-container">
                     <div class="swiper-wrapper align-items-center">
                         <div class="swiper-slide"><img src="{{asset('assets/img/clubs/club-1.png')}}" class="img-fluid"></div>
@@ -277,7 +276,7 @@
 
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
-            <div data-aos="fade-up">
+            <div class="container" data-aos="fade-up">
                 <div class="section-title">
                     <h2>Contact</h2>
                 </div>

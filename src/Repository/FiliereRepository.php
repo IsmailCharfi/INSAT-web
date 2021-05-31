@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Filiere|null find($id, $lockMode = null, $lockVersion = null)
  * @method Filiere|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Filiere[]    findAll()
  * @method Filiere[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class FiliereRepository extends ServiceEntityRepository
@@ -16,20 +17,6 @@ class FiliereRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Filiere::class);
-    }
-
-    public function findAll():array
-    {
-        return $this->findBy([], ['ordre' => 'ASC']);
-    }
-
-    public function getFiliereArray(): array{
-        $filieres = $this->findAll();
-        $choixFilieres = array();
-        foreach ($filieres as $filiere){
-            $choixFilieres[$filiere->getFiliere()] = $filiere->getId();
-        }
-        return $choixFilieres;
     }
 
     // /**

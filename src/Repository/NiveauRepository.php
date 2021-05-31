@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Niveau|null find($id, $lockMode = null, $lockVersion = null)
  * @method Niveau|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Niveau[]    findAll()
  * @method Niveau[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class NiveauRepository extends ServiceEntityRepository
@@ -18,47 +19,32 @@ class NiveauRepository extends ServiceEntityRepository
         parent::__construct($registry, Niveau::class);
     }
 
-    public function findAll():array
+    // /**
+    //  * @return Niveau[] Returns an array of Niveau objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
-        return $this->findBy([], ['ordre' => 'ASC']);
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('n.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
     }
+    */
 
-    public function getNiveauxArray():array
+    /*
+    public function findOneBySomeField($value): ?Niveau
     {
-        $niveaux = $this->findAll();
-        $choixNiveaux = array();
-        foreach ($niveaux as $niveau) {
-            $choixNiveaux[$niveau->getNiveauName()] = $niveau->getId();
-        }
-        return $choixNiveaux;
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
-
-        // /**
-        //  * @return Niveau[] Returns an array of Niveau objects
-        //  */
-        /*
-        public function findByExampleField($value)
-        {
-            return $this->createQueryBuilder('n')
-                ->andWhere('n.exampleField = :val')
-                ->setParameter('val', $value)
-                ->orderBy('n.id', 'ASC')
-                ->setMaxResults(10)
-                ->getQuery()
-                ->getResult()
-            ;
-        }
-        */
-
-        /*
-        public function findOneBySomeField($value): ?Niveau
-        {
-            return $this->createQueryBuilder('n')
-                ->andWhere('n.exampleField = :val')
-                ->setParameter('val', $value)
-                ->getQuery()
-                ->getOneOrNullResult()
-            ;
-        }
-        */
+    */
 }
