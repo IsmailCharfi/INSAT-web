@@ -2,71 +2,48 @@
 
 {% block body %}
 
-    <div class="container d-flex justify-content-center m-4">
-
-        <div class="card card-photo">
+    <div class=" d-flex justify-content-center m-4">
+        <div class="card card-photo sm-12">
             <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                <div class="d-flex flex-column align-items-center">
+                    <img id="account-img" src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle"
                          width="150">
                 </div>
             </div>
         </div>
-        <div class="card card-info ">
+        <div class="card card-info sm-12 d-flex">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-3">
-                        <h6 class="mb-0">Full Name</h6>
+                    <div class="sm-5">
+                        <h6>Full Name</h6>
                     </div>
-                    <div class="col-9 text-secondary">
+                    <div class="sm-5 text-secondary">
                         Kenneth Valdez
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-3">
+                    <div class="sm-5">
                         <h6 class="mb-0">Email</h6>
                     </div>
-                    <div class="col-9 text-secondary">
+                    <div class="sm-5 text-secondary">
                         fip@jukmuh.al
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-3">
-                        <h6 class="mb-0">Phone</h6>
+                    <div class="sm-5">
+                        <h6 class="mb-0">Role</h6>
                     </div>
-                    <div class="col-9 text-secondary">
-                        (239) 816-9029
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-3">
-                        <h6 class="mb-0">Mobile</h6>
-                    </div>
-                    <div class="col-9 text-secondary">
-                        (320) 380-4539
+                    <div class="sm-5 text-secondary">
+                        Etudiant
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-3">
-                        <h6 class="mb-0">Address</h6>
-                    </div>
-                    <div class="col-9 text-secondary">
-                        Bay Area, San Francisco, CA
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-12">
-                        <a class="btn btn-info " target="__blank"
-                           href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                    </div>
-                </div>
+            </div>
+            <div class="btn btn-outline-primary">
+                Modifier votre mo de passe
             </div>
         </div>
-
     </div>
 {% endblock %}

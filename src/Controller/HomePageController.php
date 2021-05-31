@@ -60,7 +60,7 @@ class HomePageController extends AbstractController
     public function loggedin(): Response
     {
         return $this->render('HomePage/user-menu.html.twig', [
-            'title' => 'Menu principal',
+            'title' => 'Bienvenu ',
         ]);
     }
 
