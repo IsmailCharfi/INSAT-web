@@ -19,6 +19,16 @@ class MatiereRepository extends ServiceEntityRepository
         parent::__construct($registry, Matiere::class);
     }
 
+    public function getMatiereArray(): array{
+        $matieres = $this->findAll();
+        $choixMatieres = array();
+        foreach ($matieres as $matiere){
+            $choixMatieres[$matiere->getNom()] = $matiere->getId();
+        }
+        return $choixMatieres;
+    }
+
+
     // /**
     //  * @return Matiere[] Returns an array of Matiere objects
     //  */

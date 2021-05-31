@@ -24,7 +24,7 @@ class FicheNotes
 
     /**
      * @ORM\OneToOne(targetEntity=Document::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $doc;
 

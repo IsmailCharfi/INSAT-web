@@ -5,6 +5,12 @@
 body {
     font-family: "Open Sans", sans-serif;
     color: #444444;
+    margin-top: 96px;
+}
+@media (max-width: 700px) {
+    body{
+        margin-top: 65px;
+    }
 }
 
 a {
@@ -17,6 +23,10 @@ a:hover {
     text-decoration: none;
 }
 
+hr{
+    margin: 2px;
+}
+
 h1,
 h2,
 h3,
@@ -24,6 +34,27 @@ h4,
 h5,
 h6 {
     font-family: "Raleway", sans-serif;
+}
+
+.outer-content{
+    min-height: 410px;
+    padding: 0;
+    padding-bottom: 30px;
+}
+
+.inner-content{
+    padding: 10px;
+}
+
+.no-top-margin .inner-content{
+    padding-top: 0;
+}
+
+.main-title {
+    padding: 15px 0;
+    background: #2b2b2b;
+    min-height: 80px;
+    color: #fff;
 }
 
 
@@ -76,8 +107,8 @@ section {
 }
 
 #header.header-scrolled {
-    padding: 0px 15px;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    padding: 0 15px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 #header .logo {
@@ -94,11 +125,9 @@ section {
 }
 
 @media (max-width: 600px) {
-    #header {
+    #header,
+    #header.header-scrolled{
         padding: 10px 0 5px 0;
-    }
-    #header.header-scrolled {
-        padding: 0;
     }
 }
 
@@ -111,13 +140,12 @@ section {
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 366px) {
     #header .logo img {
-        max-height: 35px;
-        padding-bottom: 5px;
+        height: 30px;
     }
     #header .logo img#logo {
-        max-height: 45px;
+        height: 45px;
     }
 }
 
@@ -127,57 +155,6 @@ section {
     }
     #header .logo img#logo {
         max-height: 100px;
-    }
-}
-
-
-/******************************************************
-                    # Log in Button
-******************************************************/
-
-.log-in-btn {
-    margin-left: 30px;
-    background: #e03a3c;
-    color: #fff;
-    border-radius: 4px;
-    padding: 8px 15px;
-    white-space: nowrap;
-    transition: 0.3s;
-    font-size: 14px;
-    font-weight: 600;
-    display: inline-block;
-}
-
-.log-in-btn:hover {
-    background: #111111;
-    color: #fff;
-}
-
-@media (min-width:1600px) {
-    header .log-in-btn {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 992px) {
-    header .log-in-btn {
-        margin-right: 15px;
-        font-weight: 550;
-        padding: 6px 12px;
-    }
-}
-
-@media (max-width: 600px) {
-    header .log-in-btn {
-        font-size: 12px;
-        padding: 6px 5px;
-    }
-}
-
-@media (max-width: 340px) {
-    header .log-in-btn {
-        font-size: 10px;
-        padding: 6px 2px;
     }
 }
 
@@ -254,6 +231,15 @@ section {
     margin-left: 5px;
 }
 
+a i.x2{
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+a i.x4{
+    font-size: 48px;
+}
+
 .navbar a:hover,
 .navbar .active,
 .navbar li:hover>a {
@@ -312,6 +298,75 @@ section {
     }
 }
 
+/* ****   USER MENU   *** */
+ul.user-menu a{
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+}
+
+ul.user-menu-2{
+    columns: 2;
+}
+
+ul.user-menu-3{
+    columns: 3;
+}
+
+ul.user-menu-4{
+    columns: 4;
+}
+
+.main-user-menu .sections{
+    width: 100%;
+    background-color: #2b2b2b;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.main-user-menu .sections a{
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.main-user-menu .sections a.active{
+    color: #e03a3c;
+    cursor: default;
+}
+
+.main-user-menu .tab-content{
+    width: 100%;
+    border-left : 20px solid #2b2b2b;
+    border-right : 20px solid #2b2b2b;
+    min-height: 200px;
+    margin:0 !important;
+}
+
+.main-user-menu .inner-tab-pane {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.main-user-menu .inner-tab-pane > .item{
+    width: 200px;
+    text-align:center;
+    margin-top: 20px;
+}
+
+.main-user-menu .inner-tab-pane  .text {
+    display: block;
+    min-height: 35px;
+    color: #2b2b2b;
+}
+
+.main-user-menu .inner-tab-pane  i {
+    display: block;
+    margin: 0 auto 10px auto;
+    font-size: 48px;
+    color: #2b2b2b;
+}
 
 /* small screen Navigation  Menu*/
 
@@ -348,19 +403,19 @@ section {
     padding-top: 60px;
 }
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
+.sidenav  a {
+    padding: 5px 5px 5px 22px;
     text-decoration: none;
     font-size: 25px;
     color: #111111;
     display: block;
     transition: 0.3s;
-    border-bottom-width: 2px;
+   /* border-bottom-width: 2px;
     border-bottom-style: outset;
-    border-bottom-color: #e9e6e6;
+    border-bottom-color: #e9e6e6;*/
 }
 
-.sidenav a:hover {
+.sidenav  a:hover {
     color: #e03a3c;
 }
 
@@ -386,12 +441,71 @@ section {
 
 
 /******************************************************
+                    # Log in Button
+******************************************************/
+
+header .log-in-btn,
+#LogInModal .log-in-btn{
+    margin-left: 30px;
+    background: #e03a3c;
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 15px;
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+header .log-in-btn:hover,
+#LogInModal .log-in-btn:hover{
+    background: #111111;
+    color: #fff;
+}
+
+html.login-form #loginButton{
+    display: none;
+}
+
+@media (min-width:1600px) {
+    header  .log-in-btn,
+    #LogInModal .log-in-btn{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    header .log-in-btn,
+    #LogInModal .log-in-btn{
+        margin-right: 15px;
+        font-weight: 550;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    header .log-in-btn,
+    #LogInModal .log-in-btn{
+        font-size: 12px;
+        padding: 6px 5px;
+    }
+}
+
+@media (max-width: 340px) {
+    header .log-in-btn,
+    #LogInModal .log-in-btn{
+        font-size: 10px;
+        padding: 6px 2px;
+    }
+}
+
+/******************************************************
                 # Welcome Section
 ******************************************************/
 
 section#welcome {
     padding: 0px;
-    padding-top: 60px;
 }
 
 #welcome .carousel-item {
@@ -414,7 +528,7 @@ section#welcome {
 }
 
 #welcome .carousel-caption {
-    top: 35%;
+    top: 25%;
     left: 12%;
 }
 
@@ -482,6 +596,9 @@ section#welcome {
 }
 
 @media (max-width: 475px) {
+    #welcome .carousel-caption{
+        top: 10%;
+    }
     #welcome .carousel-caption h1 {
         font-size: 15px;
     }
@@ -1115,60 +1232,175 @@ div.clubs:active {
     opacity: 1;
 }
 
-
-/****************************************************
-*********************#InnerPage**********************
-*****************************************************/
-
-
-/******************************************************
-                    # Breadcrumbs
-******************************************************/
-
-.breadcrumbs {
-    padding: 15px 0;
-    background: #2b2b2b;
-    min-height: 40px;
-    margin-top: 82px;
-    color: #fff;
+/*///////////////////////////*/
+.blog {
+    padding: 40px 0 20px 0;
 }
 
-@media (min-width:500px) {
-    .breadcrumbs {
-        margin-top: 85px;
-    }
+.blog .entry {
+    padding: 30px;
+    margin-bottom: 60px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.breadcrumbs h2 {
+.blog .entry .entry-img {
+    max-height: 440px;
+    margin: -30px -30px 20px -30px;
+    overflow: hidden;
+}
+
+.blog .entry .entry-title {
     font-size: 28px;
-    font-weight: 500;
+    font-weight: bold;
+    padding: 0;
+    margin: 0 0 20px 0;
 }
 
-.breadcrumbs ol {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0 0 10px 0;
-    margin: 0;
-    font-size: 14px;
-}
-
-.breadcrumbs ol a {
-    color: #aaaaaa;
-}
-
-.breadcrumbs ol a:hover {
-    color: #fff;
+.blog .entry .entry-title a {
+    color: #111111;
     transition: 0.3s;
 }
 
-.breadcrumbs ol li+li {
-    padding-left: 10px;
+.blog .entry .entry-title a:hover {
+    color: #e03a3c;
 }
 
-.breadcrumbs ol li+li::before {
+.blog .entry .entry-meta {
+    margin-bottom: 15px;
+    color: #777777;
+}
+
+.blog .entry .entry-meta ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.blog .entry .entry-meta ul li + li {
+    padding-left: 20px;
+}
+
+.blog .entry .entry-meta i {
+    font-size: 16px;
+    margin-right: 8px;
+    line-height: 0;
+}
+
+.blog .entry .entry-meta a {
+    color: #777777;
+    font-size: 14px;
     display: inline-block;
-    padding-right: 10px;
-    color: #e03a3c;
-    content: "/";
+    line-height: 1;
+}
+
+.blog .entry .entry-content p {
+    line-height: 24px;
+}
+
+.blog .blog-pagination {
+    color: #444444;
+}
+
+.blog .blog-pagination ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.blog .blog-pagination li {
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+.blog .blog-pagination li a {
+    color: #111111;
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog .blog-pagination li.active, .blog .blog-pagination li:hover {
+    background: #e03a3c;
+}
+
+.blog .blog-pagination li.active a, .blog .blog-pagination li:hover a {
+    color: #fff;
+}
+
+/*****************/
+
+img#account-img:hover{
+    cursor: pointer;
+}
+
+.card {
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card-info{
+    min-width: 400px;
+}
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+}
+
+@media (max-width: 620px) {
+    .card-info{
+        display: flex;
+        align-items: center;
+        min-width: 50px;
+    }
+}
+
+.card-photo{
+    min-width: 60px;
+}
+
+/*********************************/
+.semestres{
+    margin: 50px;
+}
+.semestres ul{
+    list-style-type:none;
+}
+.btn-group{
+    margin: 15px;
+}
+.btn-group button {
+    background-color: #2b2b2b; /* Green background */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    margin: 10px;
+    cursor: pointer; /* Pointer/hand icon */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #e03a3c;
+}
+
+/*///////////////////////////*/
+div.form-group.row{
+    margin-bottom: 15px;
+}
+
+.form-btn{
+    min-width: 110px;
+    margin-bottom: 10px;
+}
+/*****************************/
+
+img.list-img{
+    width: 100px;
 }

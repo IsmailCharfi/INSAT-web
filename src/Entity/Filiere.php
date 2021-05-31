@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FiliereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,11 +45,18 @@ class Filiere
      */
     private $niveaux;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EmploiDuTemps::class, mappedBy="filiere", orphanRemoval=true)
+     */
+    private $emploiDuTemps;
+
+
     public function __construct()
     {
         $this->matiereNiveauFilieres = new ArrayCollection();
         $this->etudiants = new ArrayCollection();
         $this->niveaux = new ArrayCollection();
+        $this->emploiDuTemps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +168,70 @@ class Filiere
     public function removeNiveau(Niveau $niveau): self
     {
         $this->niveaux->removeElement($niveau);
+
+        return $this;
+    }
+
+    public function getSelectedNiveaux(): ?array
+    {
+        $niveaux = array();
+        foreach($this->niveaux as $niveau)
+        {
+            array_push($niveaux, $niveau->getId());
+        }
+        return  $niveaux;
+    }
+
+    public function setSelectedNiveaux(array $niveaux, $manager)
+    {
+            $toRemove = $this->niveaux->filter(function ($el) use ($niveaux){
+                return !in_array($el->getId(), $niveaux);
+            });
+
+            foreach ($toRemove as $itemToRemove)
+            {
+                $this->removeNiveau($itemToRemove);
+            }
+
+            $allNiveaux = $manager->getRepository(Niveau::class)->findAll();
+
+            foreach ($niveaux as $niveau)
+            {
+                $toAdd = array_filter($allNiveaux, function ($el) use ($niveau){
+                    return $el->getId() == $niveau;
+                });
+                if(count($toAdd) > 0)
+                $this->addNiveau(array_values($toAdd)[0]);
+            }
+
+    }
+
+    /**
+     * @return Collection|EmploiDuTemps[]
+     */
+    public function getEmploiDuTemps(): Collection
+    {
+        return $this->emploiDuTemps;
+    }
+
+    public function addEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if (!$this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps[] = $emploiDuTemp;
+            $emploiDuTemp->setFiliere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if ($this->emploiDuTemps->removeElement($emploiDuTemp)) {
+            // set the owning side to null (unless already changed)
+            if ($emploiDuTemp->getFiliere() === $this) {
+                $emploiDuTemp->setFiliere(null);
+            }
+        }
 
         return $this;
     }
