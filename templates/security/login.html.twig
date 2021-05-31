@@ -1,41 +1,56 @@
+{% set title = 'Connexion' %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block loginModal %}{% endblock %}
+{% block htmlCss %}login-form{% endblock %}
 
 {% block body %}
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        <div id="LogInModal" class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="w-100 modal-title">
+                        <img src="{{asset('assets/img/favicon.png')}}" class="w-100 "> Connexion
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form method="Post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
+                        <div class="mb-3 form-group">
+                            <label for="mail-input" class="form-label">E-mail universitaire</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1"><i><iconify-icon data-icon="fa:user"></iconify-icon></i></span>
+                                <input id="inputEmail" name="email" type="email"  class="form-control" placeholder="xyz@insat.u-carthage.tn" aria-describedby="basic-addon1" required autocomplete="email" required autofocus>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="password-input" class="form-label">Mot de passe</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon2">
+                                <i><iconify-icon data-icon="fa:lock"></iconify-icon></i>
+                            </span>
+                                <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="xxxxx" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn log-in-btn mx-auto d-block" >Se connecter</button>
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#">Mot de passe oublié ?</a>
+                </div>
+            </div>
         </div>
-    {% endif %}
+    </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
 {% endblock %}
