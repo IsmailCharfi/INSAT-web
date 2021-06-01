@@ -42,6 +42,11 @@ h6 {
     padding-bottom: 30px;
 }
 
+@media (min-width: 1400px){
+    .outer-content{
+        min-height: 615px;
+    }
+}
 .inner-content{
     padding: 10px;
 }
@@ -1339,6 +1344,7 @@ img#account-img:hover{
 }
 
 .card {
+    margin-top: 5%;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
@@ -1369,10 +1375,14 @@ img#account-img:hover{
 
 /*********************************/
 .semestres{
-    margin: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+
 }
 .semestres ul{
     list-style-type:none;
+    min-width: 600px;
 }
 .btn-group{
     margin: 15px;

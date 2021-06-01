@@ -302,7 +302,16 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="col-md-12">
-                            <form class=" php-email-form info-box" method="POST">
+                            {% for label, messages in app.flashes %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ label }}">
+                                        <div class="container">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                            <form class=" php-email-form info-box" method="POST" action="{{ path("contact") }}">
                                 <i><iconify-icon data-icon="ant-design:mail-outlined"></iconify-icon></i>
                                 <h3>Contactez Nous</h3>
                                 <div class="row">
@@ -319,7 +328,7 @@
                                 <div class="form-group">
                                     <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
                                 </div>
-                                <div class="text-center"><button type="submit">Envoyer</button></div>
+                                <div class="text-center"><button type="submit" name="submit">Envoyer</button></div>
                             </form>
                         </div>
                     </div>

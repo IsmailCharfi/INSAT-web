@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ActualiteRepository;
 use App\Repository\EmploiDuTempsRepository;
+use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,6 +73,28 @@ class HomePageController extends AbstractController
         return $this->render('HomePage/under-construction.html.twig', [
             'title' => $title,
         ]);
+    }
+
+    /**
+     * @Route("/form", name="contact")
+     */
+    public function contact(Mailer $mailer): Response
+    {
+        if (isset($_POST["submit"])) {
+            $name = $_POST["name"];
+            $from = $_POST["email"];
+            $subject = $_POST["subject"];
+            $body = $_POST["message"];
+
+            $mailer->send(
+                $from,
+                "contact.insat@gmail.com",
+                $subject,
+                "<p> $body  </p>"
+            );
+        }
+        $this->addFlash("success", "Mail envoyé avec succés");
+        return $this->redirectToRoute("homePage");
     }
 
 }

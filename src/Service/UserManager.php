@@ -90,18 +90,6 @@ class UserManager
 
             array_push($menuSections, $menuSection);
         }
-        if ($this->isEditeurSite())
-        {
-            $menuSection = new MenuSection("Contenu du site");
-            $menuSection->addMenuItem(new MenuItem("Gestion des Actualités", "actualite_index"))
-                        ->addMenuItem(new MenuItem("Emplois du temps", "emploi_du_temps_index"))
-                        ->addMenuItem(new MenuItem("Téléchargements","download_index"))
-                        ->addMenuItem(new MenuItem("Liens", "link_index"))
-                        ->addMenuItem(new MenuItem("Réseaux sociaux","social_media_index"))
-                        ->addMenuItem(new MenuItem("Paramétres du site", "parametres_edit"));
-
-            array_push($menuSections, $menuSection);
-        }
         if($this->isEditeurBase())
         {
             $menuSection = new MenuSection("Données de base");
@@ -113,6 +101,26 @@ class UserManager
 
             array_push($menuSections, $menuSection);
         }
+        if ($this->isEditeurSite())
+        {
+            $menuSection = new MenuSection("Contenu du site");
+            $menuSection->addMenuItem(new MenuItem("Gestion des Actualités", "actualite_index"))
+                ->addMenuItem(new MenuItem("Emplois du temps", "emploi_du_temps_index"))
+                ->addMenuItem(new MenuItem("Téléchargements","download_index"))
+                ->addMenuItem(new MenuItem("Liens", "link_index"))
+                ->addMenuItem(new MenuItem("Réseaux sociaux","social_media_index"))
+                ->addMenuItem(new MenuItem("Paramétres du site", "parametres_show"));
+
+            array_push($menuSections, $menuSection);
+        }
+        if ($this->isValidateur())
+        {
+            $menuSection = new MenuSection("Validation");
+            $menuSection->addMenuItem(new MenuItem("Valider notes", ""))
+                ->addMenuItem(new MenuItem("Valider moyennes", ""))
+                ->addMenuItem(new MenuItem("Scores", ""));
+            array_push($menuSections, $menuSection);
+        }
         if ($this->isScolarite())
         {
             $menuSection = new MenuSection("Scolarité");
@@ -122,14 +130,6 @@ class UserManager
 
             array_push($menuSections, $menuSection);
 
-        }
-        if ($this->isValidateur())
-        {
-            $menuSection = new MenuSection("Validation");
-            $menuSection->addMenuItem(new MenuItem("Valider notes", ""))
-                ->addMenuItem(new MenuItem("Valider moyennes", ""))
-                ->addMenuItem(new MenuItem("Scores", ""));
-            array_push($menuSections, $menuSection);
         }
         if ($this->isEtudiant())
         {
