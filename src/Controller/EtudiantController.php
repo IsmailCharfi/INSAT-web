@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 #[Route('/etudiant')]
 class EtudiantController extends AbstractController
@@ -24,7 +26,7 @@ class EtudiantController extends AbstractController
     }
 
     #[Route('/new', name: 'etudiant_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserManager $userManager ): Response
+    public function new(Request $request, UserManager $userManager, UserPasswordEncoderInterface $encoder ): Response
     {
         $etudiant = new Etudiant();
         $etudiant->setRoles([$userManager::ROLE_ETUDIANT]);
@@ -32,6 +34,9 @@ class EtudiantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             $password=$form->get('password')->getData();
+             $encoded=$encoder->encodePassword($etudiant,(string)$password);
+             $etudiant->setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($etudiant);
             $entityManager->flush();
@@ -51,6 +56,7 @@ class EtudiantController extends AbstractController
     {
         return $this->render('etudiant/show.html.twig', [
             'etudiant' => $etudiant,
+            'title'=>"show"
         ]);
     }
 
@@ -69,6 +75,7 @@ class EtudiantController extends AbstractController
         return $this->render('etudiant/edit.html.twig', [
             'etudiant' => $etudiant,
             'form' => $form->createView(),
+            'title'=>"edit"
         ]);
     }
 

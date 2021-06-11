@@ -43,9 +43,33 @@ class ScolariteController extends AbstractController
     }
 
 
+    #[Route('/scolarite/{semester}/{filiere}/{niveau}/{matiere}/{type}', name: 'notes')]
+    public function notes(Request $request,int $semester,string $filiere,int $niveau, string $type): Response
+    {
+        $repository = $this->getDoctrine()->getRepository('App:Etudiant');
+        $etudiants=$repository->findAll();
+        $etudtab=array();
+
+        foreach($etudiants as $etudiant){
+            if($etudiant->getFiliere()->getFiliere()==$filiere && $etudiant->getNiveau()->getNiveau()==$niveau ){
+                $etud=array($etudiant->getNom(),$etudiant->getPrenom(),$etudiant->getNumInscription());
+                array_push($etudtab,$etud);
+
+            }
+        }
+
+
+        return $this->render('scolarite/notes.html.twig', [
+            'etudiants'=>$etudtab,
+            'title' => 'Notes',
+        ]);
+
+    }
+
+
 
     #[Route('/scolarite/{semester}/{filiere}/{niveau}', name: 'matiere')]
-    public function notes(Request $request,int $semester,string $filiere,int $niveau): Response
+    public function mats(Request $request,int $semester,string $filiere,int $niveau): Response
     {
         $repository = $this->getDoctrine()->getRepository('App:Filiere');
         $repository2 = $this->getDoctrine()->getRepository('App:MatiereNiveauFiliere');
@@ -70,18 +94,16 @@ class ScolariteController extends AbstractController
 
         foreach($matieres as $mat){
             $matName=$mat->getMatiere()->getNom();
-            $matiere[$matName]=array();
+
             if($mat->getFiliere()->getId()==$filId && $mat->getNiveau()->getId()==$nivId){
+                $matiere[$matName]=array();
                 if($mat->getTp()){ array_push($matiere[$matName],"TP");}
                 if($mat->getDs()){ array_push($matiere[$matName],"DS");}
                 if($mat->getExamen()){ array_push($matiere[$matName],"Exam");}
 
             }
+            else{$matiere=array();}
         }
-
-
-
-
 
         return $this->render('scolarite/matieres.html.twig', [
             'controller_name' => 'ScolariteController',
@@ -89,4 +111,8 @@ class ScolariteController extends AbstractController
             'title' => 'Matieres',
         ]);
     }
+
+
+
+
 }

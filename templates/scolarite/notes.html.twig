@@ -1,0 +1,36 @@
+{% extends 'table.html.twig' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block body %}
+
+    <table  class="table" >
+        <thead>
+        <tr>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>num_inscription</th>
+
+
+        </tr>
+        </thead>
+        {% for etud in etudiants %}
+            <tr>
+        <td>{{ etud[0] }}</td>
+        <td>{{ etud[1] }}</td>
+        <td>{{ etud[2] }}</td>
+            </tr>
+        {% endfor %}
+
+
+        <tbody>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>num_inscription</th>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}
