@@ -90,18 +90,6 @@ class UserManager
 
             array_push($menuSections, $menuSection);
         }
-        if ($this->isEditeurSite())
-        {
-            $menuSection = new MenuSection("Contenu du site");
-            $menuSection->addMenuItem(new MenuItem("Gestion des Actualités", "actualite_index"))
-                        ->addMenuItem(new MenuItem("Emplois du temps", "emploi_du_temps_index"))
-                        ->addMenuItem(new MenuItem("Téléchargements","download_index"))
-                        ->addMenuItem(new MenuItem("Liens", "link_index"))
-                        ->addMenuItem(new MenuItem("Réseaux sociaux","social_media_index"))
-                        ->addMenuItem(new MenuItem("Paramétres du site", "parametres_edit"));
-
-            array_push($menuSections, $menuSection);
-        }
         if($this->isEditeurBase())
         {
             $menuSection = new MenuSection("Données de base");
@@ -109,19 +97,21 @@ class UserManager
                 ->addMenuItem(new MenuItem("Niveaux", "niveau_index"))
                 ->addMenuItem(new MenuItem("Matiéres","matiere_index"))
                 ->addMenuItem(new MenuItem("Départements", "departement_index"))
-                ->addMenuItem(new MenuItem("Matiere par classe", "matieres_index"));
+                ->addMenuItem(new MenuItem("Matiere par classe", "matieres_index"))
+                ->addMenuItem(new MenuItem("Paramétres du site", "parametres_show"));
 
             array_push($menuSections, $menuSection);
         }
-        if ($this->isScolarite())
+        if ($this->isEditeurSite())
         {
-            $menuSection = new MenuSection("Scolarité");
-            $menuSection->addMenuItem(new MenuItem("Saisie des notes", ""))
-                ->addMenuItem(new MenuItem("Etudiants", ""))
-                ->addMenuItem(new MenuItem("Enseignants",""));
+            $menuSection = new MenuSection("Contenu du site");
+            $menuSection->addMenuItem(new MenuItem("Gestion des Actualités", "actualite_index"))
+                ->addMenuItem(new MenuItem("Emplois du temps", "emploi_du_temps_index"))
+                ->addMenuItem(new MenuItem("Téléchargements","download_index"))
+                ->addMenuItem(new MenuItem("Liens", "link_index"))
+                ->addMenuItem(new MenuItem("Réseaux sociaux","social_media_index"));
 
             array_push($menuSections, $menuSection);
-
         }
         if ($this->isValidateur())
         {
@@ -130,6 +120,17 @@ class UserManager
                 ->addMenuItem(new MenuItem("Valider moyennes", ""))
                 ->addMenuItem(new MenuItem("Scores", ""));
             array_push($menuSections, $menuSection);
+        }
+        if ($this->isScolarite())
+        {
+            $menuSection = new MenuSection("Scolarité");
+            $menuSection->addMenuItem(new MenuItem("Saisie des notes", ""))
+                ->addMenuItem(new MenuItem("Etudiants", ""))
+                ->addMenuItem(new MenuItem("Enseignants",""))
+                ->addMenuItem(new MenuItem("Fiches des notes","fiche_notes_index"));
+
+            array_push($menuSections, $menuSection);
+
         }
         if ($this->isEtudiant())
         {
@@ -144,7 +145,7 @@ class UserManager
         if ($this->isEnseignant())
         {
             $menuSection = new MenuSection("Espace enseignant");
-            $menuSection->addMenuItem(new MenuItem("Upload", ""));
+            $menuSection->addMenuItem(new MenuItem("Fiches des notes", ""));
 
             array_push($menuSections, $menuSection);
         }
