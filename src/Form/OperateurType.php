@@ -19,11 +19,11 @@ class OperateurType extends AbstractType
             ->add('prenom')
             ->add('roles', ChoiceType::class,[
                 'choices' => [
-                    UserManager::ROLE_ADMIN => 0,
-                    UserManager::ROLE_EDITEUR_BASE => 1,
-                    UserManager::ROLE_EDITEUR_SITE => 2,
-                    UserManager::ROLE_VALIDATEUR => 3,
-                    UserManager::ROLE_SCOLARITE => 4,
+                    UserManager::ROLE_ADMIN => UserManager::ROLE_ADMIN,
+                    UserManager::ROLE_EDITEUR_BASE => UserManager::ROLE_EDITEUR_BASE,
+                    UserManager::ROLE_EDITEUR_SITE => UserManager::ROLE_EDITEUR_SITE,
+                    UserManager::ROLE_VALIDATEUR => UserManager::ROLE_VALIDATEUR,
+                    UserManager::ROLE_SCOLARITE => UserManager::ROLE_SCOLARITE,
                 ],
                 'expanded' => true,
                 'multiple' => true,
