@@ -9,6 +9,7 @@
 
         {%  set userMenu = userManager.userMenu() %}
         {%  set i = 1 %}
+            {% set first = 1 %}
         <div class="tab-content ">
             {%  for section in userMenu.sections %}
                     <div class="tab-pane {% if i == 1 %} active show{% endif %}" id="tab-{{ i }}">
@@ -19,6 +20,13 @@
                                 <span class="text" >{{ item.title }}</span>
                             </a>
                         {% endfor %}
+                            {% if first == 1 %}
+                                <a class="item" href="{{ path("profil") }}">
+                                    <i><iconify-icon data-icon="fa-solid:id-card"></iconify-icon></i>
+                                    <span class="text" >Mon profil</span>
+                                </a>
+                                {% set first = 999 %}
+                            {% endif %}
                         </div>
                     </div>
                 {% set i = i + 1 %}
