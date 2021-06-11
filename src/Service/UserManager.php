@@ -97,7 +97,8 @@ class UserManager
                 ->addMenuItem(new MenuItem("Niveaux", "niveau_index"))
                 ->addMenuItem(new MenuItem("Matiéres","matiere_index"))
                 ->addMenuItem(new MenuItem("Départements", "departement_index"))
-                ->addMenuItem(new MenuItem("Matiere par classe", "matieres_index"));
+                ->addMenuItem(new MenuItem("Matiere par classe", "matieres_index"))
+                ->addMenuItem(new MenuItem("Paramétres du site", "parametres_show"));
 
             array_push($menuSections, $menuSection);
         }
@@ -108,8 +109,7 @@ class UserManager
                 ->addMenuItem(new MenuItem("Emplois du temps", "emploi_du_temps_index"))
                 ->addMenuItem(new MenuItem("Téléchargements","download_index"))
                 ->addMenuItem(new MenuItem("Liens", "link_index"))
-                ->addMenuItem(new MenuItem("Réseaux sociaux","social_media_index"))
-                ->addMenuItem(new MenuItem("Paramétres du site", "parametres_show"));
+                ->addMenuItem(new MenuItem("Réseaux sociaux","social_media_index"));
 
             array_push($menuSections, $menuSection);
         }
@@ -126,7 +126,8 @@ class UserManager
             $menuSection = new MenuSection("Scolarité");
             $menuSection->addMenuItem(new MenuItem("Saisie des notes", ""))
                 ->addMenuItem(new MenuItem("Etudiants", ""))
-                ->addMenuItem(new MenuItem("Enseignants",""));
+                ->addMenuItem(new MenuItem("Enseignants",""))
+                ->addMenuItem(new MenuItem("Fiches des notes","fiche_notes_index"));
 
             array_push($menuSections, $menuSection);
 
@@ -144,7 +145,7 @@ class UserManager
         if ($this->isEnseignant())
         {
             $menuSection = new MenuSection("Espace enseignant");
-            $menuSection->addMenuItem(new MenuItem("Upload", ""));
+            $menuSection->addMenuItem(new MenuItem("Fiches des notes", ""));
 
             array_push($menuSections, $menuSection);
         }

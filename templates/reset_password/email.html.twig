@@ -1,9 +1,9 @@
-<h1>Hi!</h1>
+<div style="background-color:#dce9f6">
 
-<h2>Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant</h2>
+    <h2>Pour réinitialiser votre mot de passe, veuillez <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">Cliquer içi</a></h2>
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+    <p>Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
 
-<p>Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
-
-<h3>Au revoir!</h3>
+    <h3>Si vous n'avez pas demandé de réinitialisation de mot de passe, ignorez cet e-mail.</h3>
+    <h5>Au revoir!</h5>
+</div>

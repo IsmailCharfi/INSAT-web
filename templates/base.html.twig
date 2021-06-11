@@ -26,6 +26,17 @@
     </head>
 
     <body>
+        {% if homepage is defined and homepage %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div id ="flash-fade" class="alert alert-{{ label }}">
+                        <div class="container">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
         {% block header %}
             <header id="header" class="fixed-top d-flex align-items-center">
                 <div class="container-fluid d-flex align-items-center inner-header">
@@ -33,7 +44,7 @@
                         <a href="/"><img id="logo" src="{{asset('assets/img/favicon.png')}}" /> <img src="{{asset('assets/img/logo_v4.jpg')}}"></a>
                     </div>
                     <!-- ======= NavBar ======= -->
-                    {{ include('navbar.html.twig') }}
+                    {{ include('fragments/navbar.html.twig') }}
                     <!-- ======= End Of NavBar ======= -->
                 </div>
             </header>
@@ -68,50 +79,7 @@
         </div>
 
         {% block footer %}
-            <footer id="footer">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
-
-                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
-                                <h3><span>In</span>sat</h3>
-                                <p>
-                                    {{ appDataManager.parametres.getformattedAdresse() | raw}}
-                                </p>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6  footer-element footer-contact">
-                                <h4>Contact</h4>
-                                <p>
-                                    <strong>Tél :</strong>{{ appDataManager.parametres.tel | raw}}<br>
-                                    <strong>Fax :</strong>{{  appDataManager.parametres.fax | raw}}<br>
-                                    <strong>Email :</strong>{{  appDataManager.parametres.email | raw}}<br>
-                                </p>
-                            </div>
-
-                            <div class="col-lg-2 col-md-6  footer-element footer-links">
-                                <h4>Liens Utiles</h4>
-                                <ul>
-                                    {% for link in appDataManager.links %}
-                                        <li>
-                                            <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
-                                            </i> <a href="{{ link.url | raw}}" target="_blank">{{ link.nom | raw}}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-
-                            <div class=" col-lg-4 col-md-6  footer-element social-links ">
-                                <h4>Suivez Nous</h4><br>
-                                {% for sm in appDataManager.socialMedias %}
-                                    <a href="{{ sm.url }}" target="_blank" class="{{ sm.cssClass }}"><i><iconify-icon data-icon="{{ sm.icon }}"></iconify-icon></i></a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-
+        {{ include('fragments/footer.html.twig') }}
             <!-- ======= Back To Top Button ======= -->
             <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
                 <i><iconify-icon data-icon="bi:arrow-up-short"></iconify-icon></i>
@@ -132,26 +100,7 @@
                         </div>
                         <div class="modal-body">
                             <form method="Post" action="{{ path('app_login')}}">
-                                <div class="mb-3 form-group">
-                                    <label for="mail-input" class="form-label">E-mail universitaire</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><i><iconify-icon data-icon="fa:user"></iconify-icon></i></span>
-                                        <input id="inputEmail" name="email" type="email"  class="form-control" placeholder="xyz@insat.u-carthage.tn" aria-describedby="basic-addon1" required autocomplete="email" required autofocus>
-                                    </div>
-                                </div>
-                                <div class="mb-3 form-group">
-                                    <label for="password-input" class="form-label">Mot de passe</label>
-                                    <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">
-                                <i><iconify-icon data-icon="fa:lock"></iconify-icon></i>
-                            </span>
-                                        <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="xxxxx" required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn log-in-btn mx-auto d-block" >Se connecter</button>
-                                <input type="hidden" name="_csrf_token"
-                                       value="{{ csrf_token('authenticate') }}"
-                                >
+                               {{ include ('security/login.form.html.twig') }}
                             </form>
                         </div>
                         <div class="modal-footer">
