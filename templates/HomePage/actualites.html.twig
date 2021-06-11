@@ -4,39 +4,109 @@
 <main id="main">
 
     <section id="blog" class="blog container" data-aos="fade-up">
-
-        <div class="articles flex-wrap d-flex justify-content-center">
-        {% for actualite in actualites %}
         <article class="entry">
 
             <div class="entry-img">
-                <img src="{{asset(actualite.photo.getFullUrl())}}" alt="" class="img-fluid">
+                <img src="{{asset('assets/img/slideShow1/insat1.jpg')}}" alt="" class="img-fluid">
             </div>
 
                         <h2 class="entry-title">
-                            <a href="blog-single.html">{{ actualite.titre }}</a>
+                            <a href="blog-single.html">Dolorum optio tempore volu</a>
                         </h2>
 
                         <div class="entry-meta">
                             <ul>
-                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time>{{ actualite.date.format("d M Y") }}</time></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
                             </ul>
                         </div>
 
                         <div class="entry-content">
                             <p>
-                                 {{ actualite.description }}
+                                Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam  ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
                             </p>
                         </div>
 
-        </article><!-- End blog entry -->
-        {% endfor %}
-        </div>
+                    </article><!-- End blog entry -->
 
-            <div class="d-flex justify-content-center">
-                {{ knp_pagination_render(actualites) }}
-            </div>
+                    <article class="entry">
 
+                        <div class="entry-img">
+                            <img src="{{asset('assets/img/slideShow1/insat1.jpg')}}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            <a href="blog-single.html">Nisi magni odit consequatur autem nulla dolorem</a>
+                        </h2>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            <p>
+                                Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.
+                            </p>
+                        </div>
+
+                    </article><!-- End blog entry -->
+
+                    <article class="entry">
+
+                        <div class="entry-img">
+                            <img src="{{asset('assets/img/slideShow1/insat1.jpg')}}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            <a href="blog-single.html">Possimus soluto quia et soluta libero sit sint.</a>
+                        </h2>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            <p>
+                                Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.
+                            </p>
+                        </div>
+
+                    </article><!-- End blog entry -->
+
+                    <article class="entry">
+
+                        <div class="entry-img">
+                            <img src="{{asset('assets/img/slideShow1/insat1.jpg')}}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            <a href="blog-single.html">Non rem rerum nam plicabo eius exercitationem.</a>
+                        </h2>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            <p>
+                                Aspernatur rerum perferendis et sint. Voluptates cupiditate voluptas atque quae. Rem veritatis rerum enim et autem. Saepe atque cum eligendi eaque iste omnis a qui.
+                            </p>
+                        </div>
+
+                    </article><!-- End blog entry -->
+
+                    <div class="blog-pagination">
+                        <ul class="justify-content-center">
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                        </ul>
+                    </div>
 
         </section>       <!-- End blog entries list -->
 </main>

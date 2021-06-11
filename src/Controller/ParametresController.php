@@ -15,26 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParametresController extends AbstractController
 {
 
-    private $appDataManager;
-
-    public function __construct(AppDataManager $appDataManager)
-    {
-        $this->appDataManager = $appDataManager;
-    }
-
-    #[Route('/', name: 'parametres_show', methods: ['GET'])]
-    public function show(?Parametres $parametres): Response
-    {
-        if (!isset($parametres))
-            $parametres = $this->getDoctrine()->getRepository(Parametres::class)->findCurrentParameters();
-        return $this->render('parametres/show.html.twig', [
-            'parametres' => $parametres,
-            'title' => 'Paramètres',
-        ]);
-    }
-
     #[Route('/edit', name: 'parametres_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request): Response
+    public function edit(Request $request, AppDataManager $appDataManager): Response
     {
         $parametres = $this->getDoctrine()->getRepository(Parametres::class)->findCurrentParameters();
         $form = $this->createForm(ParametresType::class, $parametres);
@@ -46,7 +28,7 @@ class ParametresController extends AbstractController
             $entityManager->persist($parametres);
             $entityManager->flush();
 
-            $this->addFlash('warning',"Paramètres modifiés avec succès" );
+            $this->addFlash('success',"Paramètres modifiés avec succès" );
 
             try
             {
@@ -63,5 +45,14 @@ class ParametresController extends AbstractController
                 'title' => 'Modifier un paramètre',
                 'showForm' => $showForm,
             ]);
+    }
+
+    #[Route('/{id}', name: 'parametres_show', methods: ['POST'])]
+    public function show(Parametres $parametres): Response
+    {
+        return $this->render('parametres/show.html.twig', [
+            'parametres' => $parametres,
+            'title' => 'Paramétres du site',
+        ]);
     }
 }

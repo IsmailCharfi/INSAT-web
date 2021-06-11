@@ -24,7 +24,7 @@
                         {% endif %}
                         {% for emploi in sem  %}
                             {% if emploi.doc is defined and emploi.doc %}
-                                <a
+                                <a class="btn btn-secondary"
                                    href="{{ asset(emploi.doc.getFullUrl()) }}" target="_blank">{{ emploi.filiere.filiere }}
                                 </a>
                             {% endif %}
