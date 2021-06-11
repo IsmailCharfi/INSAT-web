@@ -25,6 +25,7 @@ class UserAuthAuthenticator extends AbstractFormLoginAuthenticator implements Pa
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    public const TARGET_ROUTE = 'userMenu';
 
     private $entityManager;
     private $urlGenerator;
@@ -94,11 +95,15 @@ class UserAuthAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('actualites'));
+        return new RedirectResponse($this->getTargetUrl());
     }
 
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    public function getTargetUrl(){
+        return $this->urlGenerator->generate(self::TARGET_ROUTE);
     }
 }

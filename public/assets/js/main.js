@@ -229,3 +229,4 @@
     *******/
     on("click", ".tabs li#tab4", () => select("div.clubs").style.display = "block");
     on("click", ".tabs .nav li:not(#tab4)", () => select("div.clubs").style.display = "none", true);
+
