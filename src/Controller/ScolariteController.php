@@ -16,38 +16,77 @@ class ScolariteController extends AbstractController
     public function index(Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository('App:Filiere');
+        $repository2 = $this->getDoctrine()->getRepository('App:MatiereNiveauFiliere');
         $filiere = $repository->findall();
+
+
         $filieres=array();
         foreach($filiere as $fil){
             $niveau=$fil->getNiveaux();
             $fila=$fil->getFiliere();
-            $fileres[$fila]=array();
+            $filieres[$fila]=array();
             foreach($niveau as $niv){
-                array_push($fileres[$fila],$niv->getNiveau());
-            }
+                array_push($filieres[$fila],$niv->getNiveau());
+
 
     }
+        }
 
 
 
         return $this->render('scolarite/index.html.twig', [
             'controller_name' => 'ScolariteController',
-            'filieres'=>$fileres
+            'filieres'=>$filieres,
+             'title' => 'Scolarite',
 
         ]);
     }
 
 
 
-    #[Route('/notes}', name: 'notes')]
-    public function notes(Request $request): Response
+    #[Route('/scolarite/{semester}/{filiere}/{niveau}', name: 'matiere')]
+    public function notes(Request $request,int $semester,string $filiere,int $niveau): Response
     {
+        $repository = $this->getDoctrine()->getRepository('App:Filiere');
+        $repository2 = $this->getDoctrine()->getRepository('App:MatiereNiveauFiliere');
+        $repository3= $this->getDoctrine()->getRepository('App:Niveau');
+        $filieres = $repository->findall();
+        $niveaux = $repository3->findall();
+        $matieres=$repository2->findall();
+
+        foreach($filieres as $fil){
+        if($fil->getFiliere()==$filiere){
+            $filId=$fil->getId();
+            break;
+        }
+        }
+
+        foreach($niveaux as $niv){
+            if($niv->getNiveau()==$niveau){
+                $nivId=$niv->getId();
+                break;
+            }
+        }
+
+        foreach($matieres as $mat){
+            $matName=$mat->getMatiere()->getNom();
+            $matiere[$matName]=array();
+            if($mat->getFiliere()->getId()==$filId && $mat->getNiveau()->getId()==$nivId){
+                if($mat->getTp()){ array_push($matiere[$matName],"TP");}
+                if($mat->getDs()){ array_push($matiere[$matName],"DS");}
+                if($mat->getExamen()){ array_push($matiere[$matName],"Exam");}
+
+            }
+        }
 
 
 
-        return $this->render('etudiant/index.html.twig', [
+
+
+        return $this->render('scolarite/matieres.html.twig', [
             'controller_name' => 'ScolariteController',
-            'form' => $form->createView()
+            'matiere'=>$matiere,
+            'title' => 'Matieres',
         ]);
     }
 }

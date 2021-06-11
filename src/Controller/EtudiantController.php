@@ -19,6 +19,7 @@ class EtudiantController extends AbstractController
     {
         return $this->render('etudiant/index.html.twig', [
             'etudiants' => $etudiantRepository->findAll(),
+            'title'=>"etudiant"
         ]);
     }
 
@@ -41,6 +42,7 @@ class EtudiantController extends AbstractController
         return $this->render('etudiant/new.html.twig', [
             'etudiant' => $etudiant,
             'form' => $form->createView(),
+            'title'=>"new"
         ]);
     }
 

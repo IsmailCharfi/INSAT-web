@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ScolariteController!{% endblock %}
+{% block title %}Scolarite{% endblock %}
 
 {% block body %}
 <br><br><br><br><br><br><br>
@@ -32,7 +32,7 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ niv }}" aria-expanded="true" aria-controls="collapse{{ niv }}">
-                                                    {{ niv }}
+                                                    <a href="{{ path('etudiant_index') }}">{{ fil }} {{ niv }}</a>
                                                 </button>
                                             </h2>
                                             <div id="collapse{{ niv }}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
