@@ -49,17 +49,28 @@ class ScolariteController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository('App:Etudiant');
         $repository2 = $this->getDoctrine()->getRepository('App:Matiere');
+        $repository3 = $this->getDoctrine()->getRepository('App:MatiereNiveauFiliere');
+
+
         $etudiants=$repository->findAll();
         $mat=$repository2->findOneBy(['nom'=>$matiere]);
+        if(!$mat){return $this->redirectToRoute('not_found');}
+
+
+        $matNivFil=$repository3->findOneBy(['matiere'=>$mat]);
+
         $notes=array();
 
         foreach($etudiants as $etudiant){
             if($etudiant->getFiliere()->getFiliere()==$filiere && $etudiant->getNiveau()->getNiveau()==$niveau ){
+
                 $note=new Note();
                 $note->setAnneScolaire(2021);
                 $note->setEtudiant($etudiant);
-                $note->setMatiere($mat);
-
+                $note->setMatiere($matNivFil);
+                $note->setTpValid(0);
+                $note->setDsValid(0);
+                $note->setExamenValid(0);
 
                 array_push($notes,$note);
 
@@ -67,11 +78,55 @@ class ScolariteController extends AbstractController
         }
 
 
-        /*$form = $this->createFormBuilder($note)
-            ->add('task', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, ['label' => 'enrigistrer'])
-            ->getForm(); */
+        if($request->isMethod('post')){
+            $posts = $request->request->all();
+            unset($posts["DataTables_Table_0_length"]);
+
+
+            $repository4 = $this->getDoctrine()->getRepository('App:Note');
+
+            foreach($posts as $key => $post) {
+                foreach ($notes as $note) {
+                    if ($note->getEtudiant()->getNumInscription() == $key ) {
+
+                        $etu=$note->getEtudiant();
+                        $noteBase=$repository4->findOneBy([
+                            'etudiant'=>$etu,'matiere'=>$matNivFil
+                             ]);
+
+
+
+                        if($noteBase){
+                            if($type="DS"){$noteBase->setNoteDS($post);}
+                            elseif($type="TP"){$noteBase->setNoteTp($post);}
+                            elseif($type="EXAM"){$noteBase->setNoteExamen($post);}
+                            $entityManager = $this->getDoctrine()->getManager();
+                            $entityManager->flush();
+                        }
+                        else {
+                            if ($type = "DS") {
+                                $note->setNoteDS($post);
+                            } elseif ($type = "TP") {
+                                $note->setNoteTp($post);
+                            } elseif ($type = "EXAM") {
+                                $note->setNoteExamen($post);
+                            }
+
+                            $entityManager = $this->getDoctrine()->getManager();
+                            $entityManager->persist($note);
+                            $entityManager->flush();
+                            }
+
+
+
+                    }
+                }
+
+            }
+
+        }
+
+
 
 
         return $this->render('scolarite/notes.html.twig', [
