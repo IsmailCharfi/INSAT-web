@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Filiere;
+use App\Entity\Note;
 use App\Form\ScolariteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,23 +45,37 @@ class ScolariteController extends AbstractController
 
 
     #[Route('/scolarite/{semester}/{filiere}/{niveau}/{matiere}/{type}', name: 'notes')]
-    public function notes(Request $request,int $semester,string $filiere,int $niveau, string $type): Response
+    public function notes(Request $request,int $semester,string $filiere,int $niveau, string $type,string $matiere): Response
     {
         $repository = $this->getDoctrine()->getRepository('App:Etudiant');
+        $repository2 = $this->getDoctrine()->getRepository('App:Matiere');
         $etudiants=$repository->findAll();
-        $etudtab=array();
+        $mat=$repository2->findOneBy(['nom'=>$matiere]);
+        $notes=array();
 
         foreach($etudiants as $etudiant){
             if($etudiant->getFiliere()->getFiliere()==$filiere && $etudiant->getNiveau()->getNiveau()==$niveau ){
-                $etud=array($etudiant->getNom(),$etudiant->getPrenom(),$etudiant->getNumInscription());
-                array_push($etudtab,$etud);
+                $note=new Note();
+                $note->setAnneScolaire(2021);
+                $note->setEtudiant($etudiant);
+                $note->setMatiere($mat);
+
+
+                array_push($notes,$note);
 
             }
         }
 
 
+        /*$form = $this->createFormBuilder($note)
+            ->add('task', TextType::class)
+            ->add('dueDate', DateType::class)
+            ->add('save', SubmitType::class, ['label' => 'enrigistrer'])
+            ->getForm(); */
+
+
         return $this->render('scolarite/notes.html.twig', [
-            'etudiants'=>$etudtab,
+            'etudiants'=>$notes,
             'title' => 'Notes',
         ]);
 

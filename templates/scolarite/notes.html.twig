@@ -4,21 +4,24 @@
 
 {% block body %}
 
+    <form method="GET" id="my_form"></form>
     <table  class="table" >
         <thead>
         <tr>
             <th>nom</th>
             <th>prenom</th>
             <th>num_inscription</th>
+            <th>note</th>
 
 
         </tr>
         </thead>
         {% for etud in etudiants %}
             <tr>
-        <td>{{ etud[0] }}</td>
-        <td>{{ etud[1] }}</td>
-        <td>{{ etud[2] }}</td>
+        <td>{{ etud.etudiant.nom }}</td>
+        <td>{{ etud.etudiant.prenom }}</td>
+        <td>{{ etud.etudiant.numInscription }}</td>
+        <td><input type="text" id="my_form" name="row-1-position" ></td>
             </tr>
         {% endfor %}
 
@@ -30,6 +33,7 @@
             <th>nom</th>
             <th>prenom</th>
             <th>num_inscription</th>
+            <th>note</th>
         </tr>
         </tfoot>
     </table>
