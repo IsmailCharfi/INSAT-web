@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 #[Route('/enseignant')]
 class EnseignantController extends AbstractController
@@ -24,7 +25,7 @@ class EnseignantController extends AbstractController
     }
 
     #[Route('/new', name: 'enseignant_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,UserManager $userManager): Response
+    public function new(Request $request,UserManager $userManager,UserPasswordEncoderInterface $encoder): Response
     {
         $enseignant = new Enseignant();
         $enseignant->setRoles([$userManager::ROLE_ENSEIGNANT]);
@@ -32,6 +33,9 @@ class EnseignantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password=$form->get('password')->getData();
+            $encoded=$encoder->encodePassword($enseignant,(string)$password);
+            $enseignant>setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enseignant);
             $entityManager->flush();
@@ -56,12 +60,15 @@ class EnseignantController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'enseignant_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Enseignant $enseignant): Response
+    public function edit(Request $request, Enseignant $enseignant,UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(EnseignantType::class, $enseignant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password=$form->get('password')->getData();
+            $encoded=$encoder->encodePassword($enseignant,(string)$password);
+            $enseignant->setPassword($encoded);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('enseignant_index');

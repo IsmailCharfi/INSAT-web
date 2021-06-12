@@ -61,12 +61,15 @@ class EtudiantController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'etudiant_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Etudiant $etudiant): Response
+    public function edit(Request $request, Etudiant $etudiant,UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password=$form->get('password')->getData();
+            $encoded=$encoder->encodePassword($etudiant,(string)$password);
+            $etudiant->setPassword($encoded);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('etudiant_index');
