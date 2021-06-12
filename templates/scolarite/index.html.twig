@@ -29,8 +29,10 @@
                                 <div class="accordion-body">
 
                                     {% for key,niv in niveau %}
+                                    <ul class="list-group">
 
-                                                    <a href="{{ path('matiere',{'semester':"1", 'filiere':fil , 'niveau':niv }) }}">{{ fil }} {{ niv }}</a>
+                                        <li class="list-group-item"><a href="{{ path('matiere',{'semester':"1", 'filiere':fil , 'niveau':niv }) }}">{{ fil }} {{ niv }}</a></li>
+                                    </ul>
 
                                     {% endfor %}
 

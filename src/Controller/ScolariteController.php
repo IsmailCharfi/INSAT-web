@@ -50,12 +50,20 @@ class ScolariteController extends AbstractController
         $repository = $this->getDoctrine()->getRepository('App:Etudiant');
         $repository2 = $this->getDoctrine()->getRepository('App:Matiere');
         $repository3 = $this->getDoctrine()->getRepository('App:MatiereNiveauFiliere');
+        $repository4 = $this->getDoctrine()->getRepository('App:Filiere');
+        $repository5 = $this->getDoctrine()->getRepository('App:Niveau');
 
+        $fil=$repository4->findOneBy(['filiere'=>$filiere]);
+        $niv=$repository5->findOneBy(['niveau'=>$niveau]);
 
         $etudiants=$repository->findAll();
         $mat=$repository2->findOneBy(['nom'=>$matiere]);
         if(!$mat){return $this->redirectToRoute('not_found');}
+        if(!$fil){return $this->redirectToRoute('not_found');}
+        if(!$niv){return $this->redirectToRoute('not_found');}
 
+        if($semester!=1 && $semester!=2){return $this->redirectToRoute('not_found');}
+        if(strtoupper($type)<>"DS" && strtoupper($type)<>"TP" && strtoupper($type)!="EXAMEN"){return $this->redirectToRoute('not_found');}
 
         $matNivFil=$repository3->findOneBy(['matiere'=>$mat]);
 
@@ -179,6 +187,9 @@ class ScolariteController extends AbstractController
             'controller_name' => 'ScolariteController',
             'matiere'=>$matiere,
             'title' => 'Matieres',
+            'semester'=>$semester,
+            'filiere'=>$filiere,
+            'niveau'=>$niveau
         ]);
     }
 
