@@ -67,6 +67,12 @@ class Niveau
         return $this->niveau == 1 ? $this->niveau."ére année" : $this->niveau."éme année" ;
     }
 
+    public function getNiveauName2(Filiere $filiere): string{
+        if (count($filiere->getNiveaux()) == 1)
+            return $filiere->getFiliere();
+        return $filiere->getFiliere().$this->getNiveau();
+    }
+
     public function setNiveau(int $niveau): self
     {
         $this->niveau = $niveau;
@@ -172,4 +178,5 @@ class Niveau
 
         return $this;
     }
+
 }

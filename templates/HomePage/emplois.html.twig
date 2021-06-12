@@ -5,7 +5,8 @@
         <ul class="dep-list">
             {% for i in range(1,2) %}
             <li>
-                <a data-bs-toggle="collapse" class="collapsed d-flex justify-content-center" data-bs-target="#sem{{ i }}">
+                <a data-bs-toggle="collapse" class="{% if i == 2  %}collapsed{% endif%} d-flex justify-content-center" data-bs-target="#sem{{ i }}"
+                   {% if i == 1 %}aria-expanded="true{% else %}aria-expanded="false{% endif%}">
                     Semestre {{ i }}
                     <i class="icon-show">
                         <iconify-icon data-icon="akar-icons:chevron-down"></iconify-icon>
@@ -14,7 +15,7 @@
                         <iconify-icon data-icon="akar-icons:chevron-up"></iconify-icon>
                     </i>
                 </a>
-                <div id="sem{{ i }}" class="collapse" data-bs-parent=".dep-list">
+                <div id="sem{{ i }}" class="collapse {% if i == 1 %}show{% endif%}" data-bs-parent=".dep-list">
                     <br>
                     <div class="btn-group d-flex justify-content-center">
                         {% if i == 1  %}
@@ -26,6 +27,10 @@
                             {% if emploi.doc is defined and emploi.doc %}
                                 <a
                                    href="{{ asset(emploi.doc.getFullUrl()) }}" target="_blank">{{ emploi.filiere.filiere }}
+                                </a>
+                            {% else %}
+                                <a
+                                        href="javascript:alert('Emploi de temps pas encore défini');">{{ emploi.filiere.filiere }}
                                 </a>
                             {% endif %}
                         {% endfor %}

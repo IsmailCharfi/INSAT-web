@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ParametresRepository;
+use App\Utilities\Tools;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -107,8 +108,12 @@ class Parametres
         return $this;
     }
 
-    public function getformattedAdresse(): string
+    public function getFormattedAdresse(): string
     {
-        return str_replace(array("\r\n", "\n", "\r"), '<br/>', $this->adresse);
+        return Tools::strToHtml($this->adresse);
+    }
+
+    public function getAnneeScolaireCouranteFormatted(): string{
+        return ($this->anneScolaireCourante - 1)  ." / ". $this->anneScolaireCourante;
     }
 }
