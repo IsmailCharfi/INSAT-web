@@ -5,9 +5,15 @@ namespace App\Utilities;
 
 
 use App\Entity\Document;
+use App\Entity\Filiere;
+use App\Entity\MatiereNiveauFiliere;
+use App\Entity\Niveau;
+use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Self_;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints\File;
 
 class FormHelper
@@ -59,4 +65,5 @@ class FormHelper
 
         return $fileUploader->upload($file, $document);
     }
+
 }
