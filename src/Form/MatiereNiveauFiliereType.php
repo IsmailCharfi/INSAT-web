@@ -7,6 +7,7 @@ use App\Entity\Filiere;
 use App\Entity\Matiere;
 use App\Entity\MatiereNiveauFiliere;
 use App\Entity\Niveau;
+use App\Utilities\FormHelper;
 use App\Utilities\Tools;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -44,10 +45,7 @@ class MatiereNiveauFiliereType extends AbstractType
         //$this->addFiliereNiveau1($builder);
         $this->addFiliereNiveau2($builder)
         ->add('semestre',ChoiceType::class, [
-            'choices' => [
-                'semestre 1' => '1',
-                'semestre 2' => '2'
-            ],
+            'choices' => FormHelper::getSemestres(),
             'expanded' => true,
             'getter' => function (MatiereNiveauFiliere $matiereNiveauFiliere, FormInterface $form): int {
                 return $matiereNiveauFiliere->getSemestre() ?? 0;
@@ -102,17 +100,8 @@ class MatiereNiveauFiliereType extends AbstractType
 
     private function addFiliereNiveau2(FormBuilderInterface $builder): FormBuilderInterface{
 
-        $filieres = $this->manager->getRepository(Filiere::class)->findAll();
-        $choixFilieres = array();
-        foreach ($filieres as $filiere){
-            $niveaux = array();
-            foreach ($filiere->getNiveaux() as $niveau) {
-                $niveaux[$niveau->getNiveauName2($filiere)] = Tools::toExId($filiere->getId(), $niveau->getId());
-            }
-            $choixFilieres[$filiere->getFiliere()] = $niveaux;
-        }
         return $builder->add('filiere_niveau', ChoiceType::class, [
-            'choices' => $choixFilieres,
+            'choices' => FormHelper::getGroupedInputFiliereNiveau($this->manager),
             'placeholder' => 'Sélectionner un niveau',
             'getter' => function (MatiereNiveauFiliere $matiereNiveauFiliere, FormInterface $form): int {
                 $filiere = $matiereNiveauFiliere->getFiliere();

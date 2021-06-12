@@ -50,13 +50,13 @@ class MatiereNiveauFiliere
     private $ordre;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Matiere::class, inversedBy="matiereNiveauFilieres")
+     * @ORM\ManyToOne(targetEntity=Matiere::class, inversedBy="matiereNiveauFilieres", fetch ="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $matiere;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Filiere::class, inversedBy="matiereNiveauFilieres")
+     * @ORM\ManyToOne(targetEntity=Filiere::class, inversedBy="matiereNiveauFilieres", fetch ="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $filiere;

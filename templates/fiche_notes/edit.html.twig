@@ -1,9 +1,6 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit FicheNotes{% endblock %}
+{% extends 'fiche_notes/fiche_note.html.twig' %}
 
 {% block body %}
-    <h1>Edit FicheNotes</h1>
 
     {{ include('fiche_notes/_form.html.twig', {'button_label': 'Update'}) }}
 

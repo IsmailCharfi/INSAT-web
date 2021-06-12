@@ -30,11 +30,12 @@ class FicheNotesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ficheNote->setEnseignant($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ficheNote);
             $entityManager->flush();
 
-            return $this->redirectToRoute('fiche_notes_index');
+            return $this->redirectToRoute('enseignant_fiches');
         }
 
         return $this->render('fiche_notes/new.html.twig', [
@@ -63,7 +64,7 @@ class FicheNotesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('fiche_notes_index');
+            return $this->redirectToRoute('enseignant_fiches');
         }
 
         return $this->render('fiche_notes/edit.html.twig', [

@@ -85,7 +85,7 @@ class UserManager
         if ($this->isAdmin())
         {
             $menuSection = new MenuSection("Administration");
-            $menuSection->addMenuItem(new MenuItem("Gestion des utilisateurs", "users_index"));
+            $menuSection->addMenuItem(new MenuItem("Les Operateurs", "users_index"));
             $menuSection->addMenuItem(new MenuItem("Creer un operateur", "operateur_new"));
 
             array_push($menuSections, $menuSection);
@@ -145,7 +145,7 @@ class UserManager
         if ($this->isEnseignant())
         {
             $menuSection = new MenuSection("Espace enseignant");
-            $menuSection->addMenuItem(new MenuItem("Fiches des notes", ""));
+            $menuSection->addMenuItem(new MenuItem("Fiches des notes", "fiche_notes_index"));
 
             array_push($menuSections, $menuSection);
         }
