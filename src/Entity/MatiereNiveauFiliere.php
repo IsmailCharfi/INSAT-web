@@ -72,9 +72,15 @@ class MatiereNiveauFiliere
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FicheNotes::class, mappedBy="matiere")
+     */
+    private $ficheNotes;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->ficheNotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +189,7 @@ class MatiereNiveauFiliere
         return $this->niveau;
     }
 
+
     public function setNiveau(?Niveau $niveau): self
     {
         $this->niveau = $niveau;
@@ -214,6 +221,36 @@ class MatiereNiveauFiliere
             // set the owning side to null (unless already changed)
             if ($note->getMatiere() === $this) {
                 $note->setMatiere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FicheNotes[]
+     */
+    public function getFicheNotes(): Collection
+    {
+        return $this->ficheNotes;
+    }
+
+    public function addFicheNote(FicheNotes $ficheNote): self
+    {
+        if (!$this->ficheNotes->contains($ficheNote)) {
+            $this->ficheNotes[] = $ficheNote;
+            $ficheNote->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFicheNote(FicheNotes $ficheNote): self
+    {
+        if ($this->ficheNotes->removeElement($ficheNote)) {
+            // set the owning side to null (unless already changed)
+            if ($ficheNote->getMatiere() === $this) {
+                $ficheNote->setMatiere(null);
             }
         }
 

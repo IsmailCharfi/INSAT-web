@@ -22,12 +22,54 @@ class FicheNotesController extends AbstractController
         ]);
     }
 
+    #[Route('/new', name: 'fiche_notes_new', methods: ['GET', 'POST'])]
+    public function new(Request $request): Response
+    {
+        $ficheNote = new FicheNotes();
+        $form = $this->createForm(FicheNotesType::class, $ficheNote);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($ficheNote);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('fiche_notes_index');
+        }
+
+        return $this->render('fiche_notes/new.html.twig', [
+            'fiche_note' => $ficheNote,
+            'form' => $form->createView(),
+            'title' => 'Ajouter une Fiche des notes',
+        ]);
+    }
+
     #[Route('/{id}', name: 'fiche_notes_show', methods: ['GET'])]
     public function show(FicheNotes $ficheNote): Response
     {
+        $matiere = $ficheNote->getMatiere();
         return $this->render('fiche_notes/show.html.twig', [
             'fiche_note' => $ficheNote,
-            'title' => 'Fiche des notes : ' . $ficheNote->getNom(),
+            'title' => 'Fiche des notes : '.$matiere->getNiveau()->getNiveauName2($matiere->getFiliere()),
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'fiche_notes_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, FicheNotes $ficheNote): Response
+    {
+        $form = $this->createForm(FicheNotesType::class, $ficheNote);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('fiche_notes_index');
+        }
+
+        return $this->render('fiche_notes/edit.html.twig', [
+            'fiche_note' => $ficheNote,
+            'form' => $form->createView(),
+            'title' => 'Modifier la fiche des notes',
         ]);
     }
 

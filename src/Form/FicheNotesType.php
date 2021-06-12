@@ -13,7 +13,9 @@ class FicheNotesType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('doc')
+            //->add('doc')
+            ->add('enseignant')
+            //->add('matiere')
         ;
     }
 

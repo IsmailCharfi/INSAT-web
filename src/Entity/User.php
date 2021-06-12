@@ -90,6 +90,14 @@ abstract  class User implements UserInterface
         return array_unique($roles);
     }
 
+    public function getRolesString() :string{
+        $str = $this->roles[0];
+        for($i=1; $i<count($this->roles )-1; $i++){
+            $str = $str . "<br>" . $this->roles[$i];
+        }
+        return $str;
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;

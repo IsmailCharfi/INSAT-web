@@ -1334,12 +1334,45 @@ div.clubs:active {
 
 /*****************/
 
-img#account-img:hover{
+.image{
+    overflow: hidden;
+    position: relative;
+}
+
+.image img{
+    max-height: 200px;
+}
+
+form#profile-form{
+    display: none;
+}
+
+.image span.label{
+    font-size: 40px;
+    color: #fff;
+    left:0;
+    right :0;
+    top: 0;
+    bottom: 0;
+    margin : 0;
+    position : absolute;
+    display: none;
+}
+
+.image:hover{
     cursor: pointer;
 }
 
+.image:hover span.label{
+    left: 0;
+    background: rgba(0,0,0,0.5) ;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    flex-direction: column;
+}
+
 .card {
-    margin-top: 5%;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;

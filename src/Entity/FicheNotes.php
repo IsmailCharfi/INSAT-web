@@ -34,6 +34,11 @@ class FicheNotes
      */
     private $enseignant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=MatiereNiveauFiliere::class, inversedBy="ficheNotes")
+     */
+    private $matiere;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class FicheNotes
     public function setEnseignant(?Enseignant $enseignant): self
     {
         $this->enseignant = $enseignant;
+
+        return $this;
+    }
+
+    public function getMatiere(): ?MatiereNiveauFiliere
+    {
+        return $this->matiere;
+    }
+
+    public function setMatiere(?MatiereNiveauFiliere $matiere): self
+    {
+        $this->matiere = $matiere;
 
         return $this;
     }

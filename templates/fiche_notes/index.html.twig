@@ -1,6 +1,7 @@
-{% extends 'table.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
+
     <table class="table">
         <thead>
             <tr>
@@ -15,8 +16,8 @@
                 <td>{{ fiche_note.id }}</td>
                 <td>{{ fiche_note.nom }}</td>
                 <td>
-                    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
-                    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
+                    <a href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
+                    <a href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -26,4 +27,6 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <a href="{{ path('fiche_notes_new') }}">Create new</a>
 {% endblock %}
