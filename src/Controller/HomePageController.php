@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\ActualiteRepository;
+use App\Repository\DownloadRepository;
 use App\Repository\EmploiDuTempsRepository;
 use App\Service\Mailer;
+use App\Service\AppDataManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,16 +31,11 @@ class HomePageController extends AbstractController
      */
     public function actualites(Request $request, ActualiteRepository $actualiteRepository, PaginatorInterface $paginator): Response
     {
-        $x = $actualiteRepository->findAll()[0];
-        $y = array();
-        for ($i=0; $i<20; $i++){
-            $y[$i] = $x;
-    }
 
         $actualites = $paginator->paginate(
-            $y,
+            $actualiteRepository->findBy([], ['date' => 'DESC']),
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            4 // Nombre de résultats par page
+            3 // Nombre de résultats par page
         );
 
         return $this->render('HomePage/actualites.html.twig', [
@@ -50,21 +47,28 @@ class HomePageController extends AbstractController
     /**
      * @Route("/emplois", name="emplois")
      */
-    public function emplois(EmploiDuTempsRepository $emploiDuTempsRepository): Response
+    public function emplois(EmploiDuTempsRepository $emploiDuTempsRepository, AppDataManager $manager ): Response
     {
         return $this->render('HomePage/emplois.html.twig', [
-            'sem1' => $emploiDuTempsRepository->findBy(["semestre"=>1]),
+            'sem1' => $emploiDuTempsRepository->findBy(["semestre"=>1, "anneeScolaire"=>$manager->getParametres()->getAnneScolaireCourante()]),
             'sem2' => $emploiDuTempsRepository->findBy(["semestre"=>2]),
-            'title' => "Emplois du temps",
+            'title' => "Emplois du temps : " . $manager->getParametres()->getAnneeScolaireCouranteFormatted(),
         ]);
     }
 
     /**
      * @Route("/documents", name="documents")
      */
-    public function documents(): Response
+    public function documents(Request $request, DownloadRepository $downloadRepository, PaginatorInterface $paginator): Response
     {
+        $downloads = $paginator->paginate(
+            $downloadRepository->findAll(),
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+
         return $this->render('HomePage/documents.html.twig', [
+            'downloads' => $downloads,
             'title' => "Documents Utiles",
         ]);
     }
@@ -76,6 +80,7 @@ class HomePageController extends AbstractController
     {
         return $this->render('HomePage/user-menu.html.twig', [
             'title' => 'Bienvenu ',
+            'htmlCss' => "no-top-margin",
         ]);
     }
 

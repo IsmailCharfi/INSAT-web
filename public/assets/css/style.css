@@ -55,10 +55,12 @@ h6 {
 
 .inner-content{
     padding: 10px;
+    margin-top: 25px;
 }
 
 .no-top-margin .inner-content{
     padding-top: 0;
+    margin-top: 0;
 }
 
 .main-title {
@@ -1314,18 +1316,18 @@ div.clubs:active {
     line-height: 24px;
 }
 
-.blog .pagination span {
+.knp .pagination span {
     padding: 7px 16px;
     align-items: center;
 }
-.blog .pagination span a{
+.knp .pagination span a{
     color: #111111;
 }
 
 
-.blog .pagination span.current,
-.blog .pagination span:hover,
-.blog .pagination span:hover a{
+.knp .pagination span.current,
+.knp .pagination span:hover,
+.knp .pagination span:hover a{
     background-color: #e03a3c;
     color: white;
 }
@@ -1370,7 +1372,7 @@ img#account-img:hover{
 .semestres{
     display: flex;
     justify-content: center;
-    margin-top: 10%;
+    margin-top: 5%;
 
 }
 .semestres ul{
@@ -1406,4 +1408,32 @@ div.form-group.row{
 
 img.list-img{
     width: 100px;
+}
+
+/******************************/
+
+div.download-list {
+    margin: 15px;
+    padding: 10px;
+}
+
+
+div.download-list li{
+    margin: 10px;
+    padding: 5px;
+    list-style-type:none;
+}
+
+div.download-list li a{
+    font-weight: 500;
+    font-size: 25px;
+    color : #1a1e21;
+}
+
+div.download-list li a:hover{
+    color : #e03a3c;
+}
+
+div.download-list li a i{
+    margin: 5px;
 }

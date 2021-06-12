@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ActualiteRepository;
+use App\Utilities\Tools;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,6 +77,11 @@ class Actualite
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getFormattedDescription(): string
+    {
+        return Tools::strToHtml($this->description);
     }
 
     public function setDescription(?string $description): self

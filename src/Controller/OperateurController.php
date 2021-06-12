@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 #[Route('/operateur')]
 class OperateurController extends AbstractController
@@ -23,13 +25,16 @@ class OperateurController extends AbstractController
     }
 
     #[Route('/new', name: 'operateur_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request,UserPasswordEncoderInterface $encoder): Response
     {
         $operateur = new Operateur();
         $form = $this->createForm(OperateurType::class, $operateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('password')->getData();
+            $encoded = $encoder->encodePassword($operateur, (string)$password);
+            $operateur->setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($operateur);
             $entityManager->flush();
