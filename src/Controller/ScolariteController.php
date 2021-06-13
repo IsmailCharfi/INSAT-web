@@ -105,18 +105,18 @@ class ScolariteController extends AbstractController
 
                         if($post==""){$post=null;}
                         if($noteBase){
-                            if($type="DS"){$noteBase->setNoteDS($post);}
-                            elseif($type="TP"){$noteBase->setNoteTp($post);}
-                            elseif($type="EXAM"){$noteBase->setNoteExamen($post);}
+                            if(strtoupper($type)=="DS"){$noteBase->setNoteDS($post);}
+                            elseif(strtoupper($type)=="TP"){$noteBase->setNoteTp($post);}
+                            elseif(strtoupper($type)=="EXAM"){$noteBase->setNoteExamen($post);}
                             $entityManager = $this->getDoctrine()->getManager();
                             $entityManager->flush();
                         }
                         else {
-                            if ($type = "DS") {
+                            if (strtoupper($type) == "DS") {
                                 $note->setNoteDS($post);
-                            } elseif ($type = "TP") {
+                            } elseif (strtoupper($type) == "TP") {
                                 $note->setNoteTp($post);
-                            } elseif ($type = "EXAM") {
+                            } elseif (strtoupper($type) == "EXAM") {
                                 $note->setNoteExamen($post);
                             }
 
