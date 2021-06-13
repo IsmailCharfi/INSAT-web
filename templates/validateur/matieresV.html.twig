@@ -20,8 +20,7 @@
                     {% for key,typeEx in ex %}
 
                         <div class="list-group">
-                            <a href="{{ path('notes',{'semester':semester, 'filiere':filiere , 'niveau':niveau , 'matiere':mat , 'type':typeEx }) }}" class="list-group-item list-group-item-action" > {{ typeEx }}</a>
-
+<a href="{{ path('matiereValide',{'semester':semester, 'filiere':filiere , 'niveau':niveau , 'matiere':mat , 'type':typeEx }) }}" class="list-group-item list-group-item-action" > {{ typeEx }}</a>
                         </div>
                     {% endfor %}
 
