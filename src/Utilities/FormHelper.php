@@ -66,4 +66,38 @@ class FormHelper
         return $fileUploader->upload($file, $document);
     }
 
+    public static function getGroupedInputFiliereNiveau(EntityManagerInterface $manager): array{
+
+        $filieres = $manager->getRepository(Filiere::class)->findAll();
+        $choixFilieres = array();
+        foreach ($filieres as $filiere){
+            $niveaux = array();
+            foreach ($filiere->getNiveaux() as $niveau) {
+                $niveaux[$niveau->getNiveauName2($filiere)] = Tools::toExId($filiere->getId(), $niveau->getId());
+            }
+            $choixFilieres[$filiere->getFiliere()] = $niveaux;
+        }
+
+        return $choixFilieres;
+    }
+
+    public static function getSemestres(): array{
+           return [
+                'Semestre 1' => '1',
+                'Semestre 2' => '2'
+            ];
+    }
+
+    public static function getMatieres($semstre, $filiere, $niveau, EntityManagerInterface $manager): array{
+        $matieres =$manager->getRepository(MatiereNiveauFiliere::class)
+            ->findMatieres($semstre, $filiere, $niveau);
+
+        $choixMatieres = [];
+        foreach ($matieres as $matiere){
+            $choixMatieres[$matiere->getMatiere()->getNom()] = $matiere->getId();
+        }
+
+        return $choixMatieres;
+    }
+
 }

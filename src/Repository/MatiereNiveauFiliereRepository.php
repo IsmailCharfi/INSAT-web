@@ -19,6 +19,11 @@ class MatiereNiveauFiliereRepository extends ServiceEntityRepository
         parent::__construct($registry, MatiereNiveauFiliere::class);
     }
 
+    public function findMatieres($semestre, $filiere, $niveau): array{
+        return $this->findBy(['semestre'=>$semestre, 'filiere'=>$filiere->getId(), 'niveau'=>$niveau->getId()]);
+    }
+
+
     // /**
     //  * @return MatiereNiveauFiliere[] Returns an array of MatiereNiveauFiliere objects
     //  */

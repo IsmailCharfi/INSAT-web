@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FicheNotesRepository;
+use App\Utilities\Tools;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,9 +19,9 @@ class FicheNotes
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $nom;
+    private $commentaire;
 
     /**
      * @ORM\OneToOne(targetEntity=Document::class, cascade={"persist", "remove"})
@@ -34,19 +35,27 @@ class FicheNotes
      */
     private $enseignant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=MatiereNiveauFiliere::class, inversedBy="ficheNotes", fetch="EAGER")
+     */
+    private $matiere;
+
+    private $tmpFiliereNiveau;
+    private $tmpSemestre;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getCommentaire(): ?string
     {
-        return $this->nom;
+        return $this->commentaire;
     }
 
-    public function setNom(string $nom): self
+    public function setCommentaire(string $commentaire): self
     {
-        $this->nom = $nom;
+        $this->commentaire = $commentaire;
 
         return $this;
     }
@@ -74,4 +83,54 @@ class FicheNotes
 
         return $this;
     }
+
+    public function getMatiere(): ?MatiereNiveauFiliere
+    {
+        return $this->matiere;
+    }
+
+    public function setMatiere(?MatiereNiveauFiliere $matiere): self
+    {
+        $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    public function getTmpFiliereNiveau()
+    {
+        if(!empty($this->getMatiere())) {
+            $filiere = $this->getMatiere()->getFiliere();
+            $niveau = $this->getMatiere()->getNiveau();
+            return !empty($filiere) && !empty($niveau)
+                ? Tools::toExId($filiere->getId(), $niveau->getId())
+                : $this->tmpFiliereNiveau;
+        }
+        return $this->tmpFiliereNiveau;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTmpSemestre()
+    {
+        return !empty($this->getMatiere()) ? $this->getMatiere()->getSemestre() : $this->tmpSemestre;
+    }
+
+    /**
+     * @param mixed $tmpFiliereNiveau
+     */
+    public function setTmpFiliereNiveau($tmpFiliereNiveau): void
+    {
+        $this->tmpFiliereNiveau = $tmpFiliereNiveau;
+    }
+
+    /**
+     * @param mixed $tmpSemestre
+     */
+    public function setTmpSemestre($tmpSemestre): void
+    {
+        $this->tmpSemestre = $tmpSemestre;
+    }
+
+
 }

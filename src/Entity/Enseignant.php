@@ -19,16 +19,6 @@ class Enseignant extends User
      */
     private $departement;
 
-    /**
-     * @ORM\OneToMany(targetEntity=FicheNotes::class, mappedBy="enseignant", orphanRemoval=true)
-     */
-    private $ficheNotes;
-
-    public function __construct()
-    {
-        $this->ficheNotes = new ArrayCollection();
-    }
-
 
     public function getDepartement(): ?Departement
     {
@@ -38,36 +28,6 @@ class Enseignant extends User
     public function setDepartement(?Departement $departement): self
     {
         $this->departement = $departement;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|FicheNotes[]
-     */
-    public function getFicheNotes(): Collection
-    {
-        return $this->ficheNotes;
-    }
-
-    public function addFicheNote(FicheNotes $ficheNote): self
-    {
-        if (!$this->ficheNotes->contains($ficheNote)) {
-            $this->ficheNotes[] = $ficheNote;
-            $ficheNote->setEnseignant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFicheNote(FicheNotes $ficheNote): self
-    {
-        if ($this->ficheNotes->removeElement($ficheNote)) {
-            // set the owning side to null (unless already changed)
-            if ($ficheNote->getEnseignant() === $this) {
-                $ficheNote->setEnseignant(null);
-            }
-        }
 
         return $this;
     }

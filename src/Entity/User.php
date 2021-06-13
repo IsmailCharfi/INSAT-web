@@ -23,7 +23,7 @@ abstract  class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -88,6 +88,14 @@ abstract  class User implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getRolesString() :string{
+        $str = $this->roles[0];
+        for($i=1; $i<count($this->roles )-1; $i++){
+            $str = $str . "<br>" . $this->roles[$i];
+        }
+        return $str;
     }
 
     public function setRoles(array $roles): self

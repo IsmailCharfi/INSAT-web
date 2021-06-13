@@ -20,7 +20,7 @@
                         {% endfor %}
                         <hr>
                     {% endfor %}
-                    <li><a class="nav-link" href="/profile">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a></li>
+                    <li><a class="nav-link" href="{{ path('profil') }}">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a></li>
                     <li><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a></li>
                 </ul>
             </li>
@@ -45,7 +45,7 @@
                 {% endfor %}
             {% endfor %}
             <hr>
-            <a class="nav-link" href="/profile">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a>
+            <a class="nav-link" href="{{ path('profil') }}">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a>
             <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a>
         {% endif %}
     </div>
