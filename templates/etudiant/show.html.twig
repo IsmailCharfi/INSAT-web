@@ -1,28 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etudiant{% endblock %}
 
 {% block body %}
-    <br><br><br><br><br><br>
-    <h1>Etudiant</h1>
-
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ etudiant.id }}</td>
+                <th>NumInscription</th>
+                <td>{{ etudiant.numInscription }}</td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td>{{ etudiant.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ etudiant.roles ? etudiant.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ etudiant.password }}</td>
             </tr>
             <tr>
                 <th>Nom</th>
@@ -33,15 +21,16 @@
                 <td>{{ etudiant.prenom }}</td>
             </tr>
             <tr>
-                <th>NumInscription</th>
-                <td>{{ etudiant.numInscription }}</td>
+                <th>Niveau</th>
+                <td>{{ etudiant.niveau.getNiveauName2(etudiant.filiere) }}</td>
             </tr>
+
         </tbody>
     </table>
 
-    <a href="{{ path('etudiant_index') }}">back to list</a>
-
-    <a href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+    <a class="btn btn-primary form-btn" href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('etudiant_index') }}">back to list</a>
 
     {{ include('etudiant/_delete_form.html.twig') }}
 {% endblock %}

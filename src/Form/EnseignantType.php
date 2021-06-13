@@ -19,8 +19,9 @@ class EnseignantType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('departement',EntityType::class, [
-        'class' => Departement::class,
-        'choice_label' => 'nom',])
+                'class' => Departement::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'Sélectionner un Département'])
         ;
     }
 
