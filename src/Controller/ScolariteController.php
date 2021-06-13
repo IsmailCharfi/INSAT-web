@@ -103,7 +103,7 @@ class ScolariteController extends AbstractController
                              ]);
 
 
-
+                        if($post==""){$post=null;}
                         if($noteBase){
                             if($type="DS"){$noteBase->setNoteDS($post);}
                             elseif($type="TP"){$noteBase->setNoteTp($post);}
