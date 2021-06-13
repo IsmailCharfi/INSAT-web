@@ -46,7 +46,7 @@ class EnseignantController extends AbstractController
         return $this->render('enseignant/new.html.twig', [
             'enseignant' => $enseignant,
             'form' => $form->createView(),
-            'title'=>'ajouter enseignant'
+            'title'=>'ajouter un enseignant'
         ]);
     }
 
@@ -55,7 +55,7 @@ class EnseignantController extends AbstractController
     {
         return $this->render('enseignant/show.html.twig', [
             'enseignant' => $enseignant,
-            'title'=>'enseignant'
+            'title'=>'enseignant : ' . $enseignant->getNom() . " " . $enseignant->getPrenom(),
         ]);
     }
 
@@ -77,7 +77,7 @@ class EnseignantController extends AbstractController
         return $this->render('enseignant/edit.html.twig', [
             'enseignant' => $enseignant,
             'form' => $form->createView(),
-            'title'=>'modifier enseignant'
+            'title'=>'modifier un enseignant'
         ]);
     }
 
