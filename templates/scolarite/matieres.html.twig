@@ -17,12 +17,11 @@
                                     <div class="accordion-body">
 
                                         {% for key,typeEx in ex %}
-                                            <ul class="list-group">
 
-                                                <li class="list-group-item"><a href="{{ path('notes',{'semester':semester, 'filiere':filiere , 'niveau':niveau , 'matiere':mat , 'type':typeEx }) }}"> {{ typeEx }}</a></li>
-                                                
-                                            </ul>
+                                        <div class="list-group">
+                                                        <a href="{{ path('notes',{'semester':semester, 'filiere':filiere , 'niveau':niveau , 'matiere':mat , 'type':typeEx }) }}" class="list-group-item list-group-item-action" > {{ typeEx }}</a>
 
+                                        </div>
                                         {% endfor %}
 
 
