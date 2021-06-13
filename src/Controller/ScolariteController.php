@@ -63,7 +63,7 @@ class ScolariteController extends AbstractController
         if(!$niv){return $this->redirectToRoute('not_found');}
 
         if($semester!=1 && $semester!=2){return $this->redirectToRoute('not_found');}
-        if(strtoupper($type)<>"DS" && strtoupper($type)<>"TP" && strtoupper($type)!="EXAM"){return $this->redirectToRoute('not_found');}
+        if(strtoupper($type)<>"DS" && strtoupper($type)<>"TP" && strtoupper($type)!="EXAMEN"){return $this->redirectToRoute('not_found');}
 
         $matNivFil=$repository3->findOneBy(['matiere'=>$mat]);
 
