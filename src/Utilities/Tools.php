@@ -18,8 +18,10 @@ class Tools
         return $masterId * self::ID_OFFSET + $slaveId;
     }
 
-    public static function splitExId (int $exId): array{
-        return ["masterId" => intdiv($exId, self::ID_OFFSET), "slaveId" => ($exId % Self::ID_OFFSET)];
+    public static function splitExId (?int $exId): array{
+        $id = $exId ?? 0;
+
+        return ["masterId" => intdiv($id, self::ID_OFFSET), "slaveId" => ($id % Self::ID_OFFSET)];
     }
 
 }

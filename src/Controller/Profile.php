@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\FicheNotes;
 use App\Entity\User;
+use App\Form\FicheNotesType;
 use App\Form\ProfilePhotoType;
 use App\Service\FileUploader;
 use App\Utilities\FormHelper;
@@ -55,6 +57,7 @@ class Profile extends AbstractController
 
             return new Response("/" . $user->getPhoto()->getFullUrl());
         }
+        return new Response("");
     }
 
     private function handleUploads($form, $user){
@@ -63,5 +66,6 @@ class Profile extends AbstractController
         if($user)
             $user->setPhoto($photo);
     }
+
 
 }

@@ -35,7 +35,7 @@ class EnseignantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password=$form->get('password')->getData();
             $encoded=$encoder->encodePassword($enseignant,(string)$password);
-            $enseignant>setPassword($encoded);
+            $enseignant->setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enseignant);
             $entityManager->flush();

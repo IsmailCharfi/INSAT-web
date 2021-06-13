@@ -88,9 +88,15 @@ class FormHelper
             ];
     }
 
-    public static function getMatieres($semstre, $filiere, $niveau, EntityManagerInterface $manager): array{
+    public static function getMatieresEx($semestre, $exId, EntityManagerInterface $manager): array{
+        $filiereNiveau =  Tools::splitExId($exId);
+
+        return Self::getMatieres($semestre, $filiereNiveau['masterId'], $filiereNiveau['slaveId'], $manager);
+    }
+
+    public static function getMatieres($semestre, $filiere, $niveau, EntityManagerInterface $manager): array{
         $matieres =$manager->getRepository(MatiereNiveauFiliere::class)
-            ->findMatieres($semstre, $filiere, $niveau);
+            ->findMatieres($semestre, $filiere, $niveau);
 
         $choixMatieres = [];
         foreach ($matieres as $matiere){

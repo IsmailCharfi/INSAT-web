@@ -20,7 +20,7 @@ class MatiereNiveauFiliereRepository extends ServiceEntityRepository
     }
 
     public function findMatieres($semestre, $filiere, $niveau): array{
-        return $this->findBy(['semestre'=>$semestre, 'filiere'=>$filiere->getId(), 'niveau'=>$niveau->getId()]);
+        return $this->findBy(['semestre'=>$semestre, 'filiere'=>$filiere, 'niveau'=>$niveau]);
     }
 
 
