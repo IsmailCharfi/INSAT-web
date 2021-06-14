@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Note;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -23,21 +24,33 @@ class NoteRepository extends ServiceEntityRepository
         return $this->findBy(['matiere'=>$matiere, 'anneScolaire'=>$anneeScolaire]);
     }
 
-    public function findByEtudiant($etudiant, $anneeScolaire, $semestre){
-        /*return $this->findBy(['etudiant'=>$etudiant,
-            'anneScolaire'=>$anneeScolaire,
-            //'matiere[semestre]' =>$semestre,
+    public function getHistorique($historiqueSelection, $semestre){
+        $query = $this->createQueryBuilder('n')
+            ->Join('n.matiere', 'm', Join::WITH, 'm.semestre = ?1 ')
+            ->where(' n.etudiant = ?2 and n.anneScolaire = ?3 ')
+            ->setParameter(1, $semestre)
+            ->setParameter(2, $historiqueSelection->getTmpEtudiant())
+            ->setParameter(3, $historiqueSelection->getAnnee());
+        return $query->getQuery()->getResult();
+    }
 
-        ]);*/
+    public function findAnnneByEtudiant($etudiant){
 
         $query = $this->createQueryBuilder('n')
-            ->leftJoin('n.etudiant', 'e')
-            ->leftJoin('n.matiere','m')
-            ->where('m.semestre = ?1 and e.id = ?2 and n.anneScolaire = ?3 ')
-            ->setParameter(1, $semestre)
-            ->setParameter(2, $etudiant)
-            ->setParameter(3, $anneeScolaire);
-        dd($query->getQuery()->getResult());
+            ->select('n.anneScolaire')
+            ->where('n.etudiant = ?1')
+            ->distinct()
+            ->setParameter(1, $etudiant->getId());
+        return $query->getQuery()->getResult();
+    }
+
+
+    public function getNotes($matiereSelection){
+        $query = $this->createQueryBuilder('n')
+            ->where('n.anneScolaire = ?1 and n.matiere = ?2')
+            ->setParameter(1, $matiereSelection->getAnnee())
+            ->setParameter(2, $matiereSelection->getMatiere());
+        return $query->getQuery()->getResult();
     }
 
         // /**

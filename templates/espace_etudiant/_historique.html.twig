@@ -11,26 +11,22 @@
     </tr>
     </thead>
     <tbody>
-    {% for matiere in matieres %}
+    {% for note in notes %}
         <tr>
-            <td>{{ matiere.matiere.nom }}</td>
-            <td>{{ matiere.coefficient }}</td>
-            {%  set hasnote = matiere.notes[0] is defined and matiere.notes[0] %}
-            {% if hasnote %}
-            {% set note = matiere.notes[0] %}
-            {% endif %}
+            <td>{{ note.matiere.matiere.nom }}</td>
+            <td>{{ note.matiere.coefficient }}</td>
             <td>
-                {% if hasnote and (true or note.dsValid) %}
+                {% if (true or note.dsValid) %}
                     {{ note.noteDS }}
                 {% endif %}
             </td>
             <td>
-                {% if hasnote and (true or note.tpValid) %}
+                {% if(true or note.tpValid) %}
                     {{ note.noteTp }}
                 {% endif %}
             </td>
             <td>
-                {% if hasnote and (true or note.examenValid) %}
+                {% if (true or note.examenValid) %}
                     {{ note.noteExamen }}
                 {% endif %}
             </td>

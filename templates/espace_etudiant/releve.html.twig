@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h2>Semestre 1</h2>
-    {{ include('espace_etudiant/_releve.html.twig', {'matieres': semestre1}) }}
+    {{ include('espace_etudiant/_releve.html.twig', {'matieres': semestre1, 'semestre' : 1}) }}
 <br/>
-<h2>Semestre 2</h2>
-    {{ include('espace_etudiant/_releve.html.twig', {'matieres': semestre2}) }}
+    {{ include('espace_etudiant/_releve.html.twig', {'matieres': semestre2, 'semestre' : 2}) }}
 {% endblock %}

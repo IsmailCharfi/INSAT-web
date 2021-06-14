@@ -41,9 +41,6 @@ class FicheNotesController extends AbstractController
             $entityManager->persist($ficheNote);
             $entityManager->flush();
 
-            $this->addFlash('success',"Fiche : ".$ficheNote->getMatiere()->getMatiere() ." ajoutée avec succès" );
-
-
             return $this->redirectToRoute('fiche_notes_index');
         }
 
@@ -96,8 +93,6 @@ class FicheNotesController extends AbstractController
         if ($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success',"Fiche : ".$ficheNote->getMatiere()->getMatiere() ." modifiée avec succès" );
-
             return $this->redirectToRoute('fiche_notes_index');
         }
 
@@ -112,8 +107,6 @@ class FicheNotesController extends AbstractController
     public function delete(Request $request, FicheNotes $ficheNote): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ficheNote->getId(), $request->request->get('_token'))) {
-
-            $this->addFlash('warning',"Fiche : ".$ficheNote->getMatiere()->getMatiere() ." suprimée avec succès" );
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($ficheNote);
