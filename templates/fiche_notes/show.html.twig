@@ -38,9 +38,13 @@
         </tbody>
     </table>
 
+    {% if userManager.isEnseignant() %}
     <a class="btn btn-primary form-btn" href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
     <br>
+    {% endif %}
     <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_index') }}">back to list</a>
 
+    {% if userManager.isEnseignant() %}
     {{ include('fiche_notes/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

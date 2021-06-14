@@ -124,9 +124,9 @@ class UserManager
         if ($this->isScolarite())
         {
             $menuSection = new MenuSection("Scolarité");
-            $menuSection->addMenuItem(new MenuItem("Saisie des notes", ""))
-                ->addMenuItem(new MenuItem("Etudiants", ""))
-                ->addMenuItem(new MenuItem("Enseignants",""))
+            $menuSection->addMenuItem(new MenuItem("Saisie des notes", "scolarite"))
+                ->addMenuItem(new MenuItem("Etudiants", "etudiant_index"))
+                ->addMenuItem(new MenuItem("Enseignants","enseignant_index"))
                 ->addMenuItem(new MenuItem("Fiches des notes","fiche_notes_index"));
 
             array_push($menuSections, $menuSection);

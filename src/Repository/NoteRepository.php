@@ -19,6 +19,10 @@ class NoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Note::class);
     }
 
+    public function findByMatiere($matiere, $anneeScolaire){
+        return $this->findBy(['matiere'=>$matiere, 'anneScolaire'=>$anneeScolaire]);
+    }
+
     // /**
     //  * @return Note[] Returns an array of Note objects
     //  */

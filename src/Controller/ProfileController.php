@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Profile extends AbstractController
+class ProfileController extends AbstractController
 {
     private $fileUploader;
     private $manager;
