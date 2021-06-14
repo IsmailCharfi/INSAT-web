@@ -1,0 +1,40 @@
+<h2>Semestre {{ semestre }}</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Matière</th>
+        <th>Coefficient</th>
+        <th>DS</th>
+        <th>TP</th>
+        <th>Examen</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for note in notes %}
+        <tr>
+            <td>{{ note.matiere.matiere.nom }}</td>
+            <td>{{ note.matiere.coefficient }}</td>
+            <td>
+                {% if (true or note.dsValid) %}
+                    {{ note.noteDS }}
+                {% endif %}
+            </td>
+            <td>
+                {% if(true or note.tpValid) %}
+                    {{ note.noteTp }}
+                {% endif %}
+            </td>
+            <td>
+                {% if (true or note.examenValid) %}
+                    {{ note.noteExamen }}
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
