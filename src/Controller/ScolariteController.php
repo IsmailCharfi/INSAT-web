@@ -65,7 +65,7 @@ class ScolariteController extends AbstractController
 
         if (!$mat || !$fil || !$niv
             || ($semester != 1 && $semester != 2)
-            || (strtoupper($type) != "DS" && strtoupper($type) != "TP" && strtoupper($type) != "EXAM")) {
+            || (strtoupper($type) != "DS" && strtoupper($type) != "TP" && strtoupper($type) != "EXAMEN")) {
             return $this->redirectToRoute('not_found');
         }
 
@@ -73,17 +73,29 @@ class ScolariteController extends AbstractController
         $matNivFil = $this->manager->getRepository(MatiereNiveauFiliere::class)
             ->findOneBy(['matiere' => $mat, 'filiere' => $fil, 'niveau' => $niv, 'semestre' => $semester]);
 
+        $hasType = false;
+        if (strtoupper($type) == "DS") {
+            $hasType = $matNivFil->getDs();
+        } elseif (strtoupper($type)== "TP") {
+            $hasType = $matNivFil->getTp();
+        } elseif (strtoupper($type) == "EXAMEN") {
+            $hasType = $matNivFil->getExamen();
+        }
+        if (!$hasType) {
+            return $this->redirectToRoute('not_found');
+        }
+
         $savedNotes = $this->manager->getRepository(Note::class)->findByMatiere($matNivFil, $this->currentAnnee);
 
         $TmpNotes = array();
         $savedNotes2 = array();
         $mark = null;
         foreach ($savedNotes as $note) {
-            if ($type == "DS") {
+            if (strtoupper($type) == "DS") {
                 $mark = $note->getNoteDS();
-            } elseif ($type == "TP") {
+            } elseif (strtoupper($type)== "TP") {
                 $mark = $note->getNoteTp();
-            } elseif ($type == "EXAM") {
+            } elseif (strtoupper($type) == "EXAMEN") {
                 $mark = $note->getNoteExamen();
             }
             if (!empty($mark)) {
@@ -123,11 +135,11 @@ class ScolariteController extends AbstractController
 
                 $savedNoteExists = array_key_exists($idEtudiant, $savedNotes2);
                 $cNote =  $savedNoteExists ? $savedNotes2[$idEtudiant] : $note;
-                if ($type == "DS") {
+                if (strtoupper($type)== "DS") {
                     $cNote->setNoteDS($post);
-                } elseif ($type == "TP") {
+                } elseif (strtoupper($type) == "TP") {
                     $cNote->setNoteTp($post);
-                } elseif ($type == "EXAM") {
+                } elseif (strtoupper($type) == "EXAMEN") {
                     $cNote->setNoteExamen($post);
                 }
 
@@ -176,7 +188,7 @@ class ScolariteController extends AbstractController
                 array_push($matiere[$matName], "TP");
             }
             if ($mat->getExamen()) {
-                array_push($matiere[$matName], "Examen");
+                array_push($matiere[$matName], "EXAMEN");
             }
 
         }

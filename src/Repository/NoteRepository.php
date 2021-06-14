@@ -23,7 +23,24 @@ class NoteRepository extends ServiceEntityRepository
         return $this->findBy(['matiere'=>$matiere, 'anneScolaire'=>$anneeScolaire]);
     }
 
-    // /**
+    public function findByEtudiant($etudiant, $anneeScolaire, $semestre){
+        /*return $this->findBy(['etudiant'=>$etudiant,
+            'anneScolaire'=>$anneeScolaire,
+            //'matiere[semestre]' =>$semestre,
+
+        ]);*/
+
+        $query = $this->createQueryBuilder('n')
+            ->leftJoin('n.etudiant', 'e')
+            ->leftJoin('n.matiere','m')
+            ->where('m.semestre = ?1 and e.id = ?2 and n.anneScolaire = ?3 ')
+            ->setParameter(1, $semestre)
+            ->setParameter(2, $etudiant)
+            ->setParameter(3, $anneeScolaire);
+        dd($query->getQuery()->getResult());
+    }
+
+        // /**
     //  * @return Note[] Returns an array of Note objects
     //  */
     /*
