@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\HistorySelection;
 use App\Entity\MatiereNiveauFiliere;
 use App\Entity\MatiereSelection;
+use App\Entity\Moyenne;
 use App\Entity\Note;
 use App\Form\HistorySelectionType;
 use App\Form\MatiereSelectionType;
@@ -37,10 +38,14 @@ class EspaceEtudiantController extends AbstractController
         $semestre1 = $noteRepository->getReleve($this->getUser(), $annee, 1);
         $semestre2 = $noteRepository->getReleve($this->getUser(), $annee, 2);
 
+        $moyenneRepository = $this->manager->getRepository(Moyenne::class);
+        $moyenne = $moyenneRepository->findOneBy(['etudiant'=>$this->getUser(), 'anneeScolaire'=>$annee]);
+
         return $this->render('espace_etudiant/releve.html.twig', [
             'title' => 'Relevé de notes : ' . Tools::getAnneeScolaireFormatted($annee),
             'semestre1'=> $semestre1,
             'semestre2'=> $semestre2,
+            'moyenne' => $moyenne,
         ]);
 
     }

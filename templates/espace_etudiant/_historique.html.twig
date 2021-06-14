@@ -11,22 +11,24 @@
     </tr>
     </thead>
     <tbody>
+    {% set notCheck = true %}
+
     {% for note in notes %}
         <tr>
             <td>{{ note.matiere.matiere.nom }}</td>
             <td>{{ note.matiere.coefficient }}</td>
             <td>
-                {% if (true or note.dsValid) %}
+                {% if (notCheck or note.dsValid) %}
                     {{ note.noteDS }}
                 {% endif %}
             </td>
             <td>
-                {% if(true or note.tpValid) %}
+                {% if(notCheck or note.tpValid) %}
                     {{ note.noteTp }}
                 {% endif %}
             </td>
             <td>
-                {% if (true or note.examenValid) %}
+                {% if (notCheck or note.examenValid) %}
                     {{ note.noteExamen }}
                 {% endif %}
             </td>

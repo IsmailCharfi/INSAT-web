@@ -1,4 +1,7 @@
-<h2>Semestre {{ semestre }}</h2>
+<h2>
+    Semestre {{ semestre }}
+
+</h2>
 
 <table class="table">
     <thead>
@@ -15,22 +18,23 @@
         <tr>
             <td>{{ matiere.matiere.nom }}</td>
             <td>{{ matiere.coefficient }}</td>
+            {% set notCheck = true %}
             {%  set hasnote = matiere.notes[0] is defined and matiere.notes[0] %}
             {% if hasnote %}
             {% set note = matiere.notes[0] %}
             {% endif %}
             <td>
-                {% if hasnote and (true or note.dsValid) %}
+                {% if hasnote and (notCheck or note.dsValid) %}
                     {{ note.noteDS }}
                 {% endif %}
             </td>
             <td>
-                {% if hasnote and (true or note.tpValid) %}
+                {% if hasnote and (notCheck or note.tpValid) %}
                     {{ note.noteTp }}
                 {% endif %}
             </td>
             <td>
-                {% if hasnote and (true or note.examenValid) %}
+                {% if hasnote and (notCheck or note.examenValid) %}
                     {{ note.noteExamen }}
                 {% endif %}
             </td>
@@ -42,3 +46,4 @@
     {% endfor %}
     </tbody>
 </table>
+

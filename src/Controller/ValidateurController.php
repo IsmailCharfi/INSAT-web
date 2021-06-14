@@ -183,11 +183,15 @@ class ValidateurController extends AbstractController
                     }
                 }
             }
-
+            $this->addFlash('success', "Notes validées");
+            return $this->redirectToRoute('matiereValide', [
+                'semester' => $semester,
+                'filiere' => $filiere,
+                'niveau' => $niveau,
+            ]);
 
 
         }
-
 
 
 
@@ -200,7 +204,7 @@ class ValidateurController extends AbstractController
     }
 
 
-    #[Route('/validateur/moyenne', name: 'validateur_moyenne')]
+    #[Route('/validateur/moyenne', name: 'filiere')]
     public function moyenneAffiche(MoyenneManager $moy): Response
     {
         $repository = $this->getDoctrine()->getRepository('App:Filiere');
@@ -255,7 +259,7 @@ class ValidateurController extends AbstractController
             $this->addFlash('warning', "pas de matiere :'(");
             return $this->redirectToRoute('filiere');
         }
-
+        $tp = true;
         foreach($matieres as $mat) {
             if ($mat->getTp() == false) {
                 $tp = false;}

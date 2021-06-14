@@ -58,3 +58,5 @@ security:
         - { path: ^/scolarite, roles: ROLE_SCOLARITE}
         - { path: ^/users , roles: ROLE_ADMIN}
         - { path: ^/validateur, roles: ROLE_VALIDATEUR}
+
+    access_denied_url: /accessdenied
