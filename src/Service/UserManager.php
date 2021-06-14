@@ -116,8 +116,8 @@ class UserManager
         if ($this->isValidateur())
         {
             $menuSection = new MenuSection("Validation");
-            $menuSection->addMenuItem(new MenuItem("Valider notes", ""))
-                ->addMenuItem(new MenuItem("Valider moyennes", ""))
+            $menuSection->addMenuItem(new MenuItem("Valider notes", "validateur"))
+                ->addMenuItem(new MenuItem("Valider moyennes", "validateur_moyenne"))
                 ->addMenuItem(new MenuItem("Scores", ""));
             array_push($menuSections, $menuSection);
         }

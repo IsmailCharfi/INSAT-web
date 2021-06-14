@@ -16,14 +16,11 @@ class MoyenneManager{
                     $this->em = $em;
                  }
 
-
-
     public  function moyenneMatiere(Etudiant $etudiant, Matiere $matiere){
         $repository1=$this->em->getRepository('App:MatiereNiveauFiliere');
         $repository2= $this->em->getRepository('App:Note');
         $mat=$repository1->findOneBy(['matiere'=>$matiere]);
         $notes=$repository2->findOneBy(['etudiant'=>$etudiant,'matiere'=>$mat]);
-
 
         if($mat->getTp()){
             $tp=true;
@@ -57,6 +54,7 @@ class MoyenneManager{
 
         return $score/$coef;
     }
+
     public  function moyenneAnnuel($etudiant){
 
         return (self::moyenneSemester($etudiant , 1)+ self::moyenneSemester($etudiant ,2))/2 ;

@@ -18,7 +18,6 @@ class ValidateurController extends AbstractController
         $repository = $this->getDoctrine()->getRepository('App:Filiere');
         $filiere = $repository->findall();
 
-
         $filieres=array();
         foreach($filiere as $fil){
             $niveau=$fil->getNiveaux();
@@ -26,12 +25,8 @@ class ValidateurController extends AbstractController
             $filieres[$fila]=array();
             foreach($niveau as $niv){
                 array_push($filieres[$fila],$niv->getNiveau());
-
-
             }
         }
-
-
 
         return $this->render('validateur/index.html.twig', [
             'filieres'=>$filieres,
@@ -54,14 +49,11 @@ class ValidateurController extends AbstractController
         $niv = $repository3->findOneBy(['niveau'=>$niveau]);
         $matieres=$repository2->findall();
 
-
             if($fil){
                 $filId=$fil->getId();
             }else{
                 return $this->redirectToRoute('not_found');
             }
-
-
 
             if($niv){
                 $nivId=$niv->getId();
@@ -70,18 +62,14 @@ class ValidateurController extends AbstractController
                 return $this->redirectToRoute('not_found');
             }
 
-
-
         foreach($matieres as $mat){
             $matName=$mat->getMatiere()->getNom();
-
 
             $ds=true;
             $tp=true;
             $exam=true;
 
             $etudiants=$repository5->findBy(['filiere'=>$fil , 'niveau'=>$niv]);
-
             $notes=$repository4->findBy(['matiere'=>$mat]);
 
             if($notes==null){
@@ -102,24 +90,19 @@ class ValidateurController extends AbstractController
                             if ($note->getNoteExamen() == null) {
                                 $exam = false;
                             }
-
                         }
                     }
                 }
             }
 
-
             if($mat->getFiliere()->getId()==$filId && $mat->getNiveau()->getId()==$nivId && ($ds==true || $tp==true ||$exam==true)){
                 $matiere[$matName]=array();
+
                 if($mat->getTp() && $tp==true){ array_push($matiere[$matName],"TP");}
                 if($mat->getDs() && $ds==true){ array_push($matiere[$matName],"DS");}
                 if($mat->getExamen() && $exam==true){ array_push($matiere[$matName],"Exam");}
-
             }
-            else{$matiere=array();}
         }
-
-
 
         return $this->render('validateur/matieresV.html.twig', [
             'controller_name' => 'ScolariteController',
@@ -217,7 +200,7 @@ class ValidateurController extends AbstractController
     }
 
 
-    #[Route('/validateur/moyenne', name: 'filiere')]
+    #[Route('/validateur/moyenne', name: 'validateur_moyenne')]
     public function moyenneAffiche(MoyenneManager $moy): Response
     {
         $repository = $this->getDoctrine()->getRepository('App:Filiere');

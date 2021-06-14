@@ -72,8 +72,6 @@ class FicheNotesController extends AbstractController
 
     }
 
-
-
     #[Route('/{id}', name: 'fiche_notes_show', methods: ['GET'])]
     public function show(FicheNotes $ficheNote): Response
     {
