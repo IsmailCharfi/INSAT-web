@@ -39,6 +39,17 @@ security:
         - { path: ^/operateur, roles: ROLE_OPERATEUR }
         - { path: ^/profile , roles: ROLE_USER }
         - { path: ^/allusers, roles: ROLE_ADMIN }
-
-
-
+        - { path: ^/departement, roles: ROLE_EDITEUR_BASE }
+        - { path: ^/download, roles: ROLE_USER }
+        - { path: ^/enseignant , roles: ROLE_EDITEUR_BASE }
+        - { path: ^/etudiant , roles: [ROLE_EDITEUR_BASE, ROLE_VALIDATEUR] }
+        - { path: ^/filiere , roles: ROLE_EDITEUR_BASE }
+        - { path: ^/link , roles: ROLE_EDITEUR_SITE }
+        - { path: ^/matiere, roles: ROLE_SCOLARITE}
+        - { path: ^/niveau, roles: [ROLE_SCOLARITE,ROLE_EDITEUR_BASE]}
+        - { path: ^/parametres, roles: ROLE_EDITEUR_SITE}
+        - { path: ^/reset-password, roles: ROLE_USER}
+        - { path: ^/socialmedia, roles: ROLE_EDITEUR_SITE}
+        - { path: ^/users , roles: ROLE_EDITEUR_BASE}
+        - { path: ^/usermenu, roles: ROLE_USER}
+        - {path: ^/emploidutemps/,roles: ROLE_ADMIN}

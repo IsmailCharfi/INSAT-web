@@ -11,8 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-#[Route('/emploi/du/temps')]
+#[Route('/emploidutemps')]
 class EmploiDuTempsController extends AbstractController
 {
 
@@ -33,6 +34,9 @@ class EmploiDuTempsController extends AbstractController
     }
 
     #[Route('/new', name: 'emploi_du_temps_new', methods: ['GET', 'POST'])]
+    /**
+     * @IsGranted("ROLE_AMIN")
+     */
     public function new(Request $request): Response
     {
         $emploiDuTemp = new EmploiDuTemps();
@@ -67,6 +71,9 @@ class EmploiDuTempsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'emploi_du_temps_edit', methods: ['GET', 'POST'])]
+    /**
+     * @IsGranted("ROLE_AMIN")
+     */
     public function edit(Request $request, EmploiDuTemps $emploiDuTemp): Response
     {
         $form = $this->createForm(EmploiDuTempsType::class, $emploiDuTemp);
