@@ -46,6 +46,7 @@ class EspaceEtudiantController extends AbstractController
             'semestre1'=> $semestre1,
             'semestre2'=> $semestre2,
             'moyenne' => $moyenne,
+            'addButtons'=> true,
         ]);
 
     }
