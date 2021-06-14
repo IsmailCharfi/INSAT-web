@@ -10,9 +10,17 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class MoyenneManager{
 
-    public  function moyenneMatiere(EntityManagerInterface $manager,Etudiant $etudiant, Matiere $matiere){
-        $repository1= $manager->getRepository('App:MatiereNiveauFiliere');
-        $repository2= $manager->getRepository('App:Note');
+             private $em;
+
+             public function __construct(EntityManagerInterface $em){
+                    $this->em = $em;
+                 }
+
+
+
+    public  function moyenneMatiere(Etudiant $etudiant, Matiere $matiere){
+        $repository1=$this->em->getRepository('App:MatiereNiveauFiliere');
+        $repository2= $this->em->getRepository('App:Note');
         $mat=$repository1->findOneBy(['matiere'=>$matiere]);
         $notes=$repository2->findOneBy(['etudiant'=>$etudiant,'matiere'=>$mat]);
 
@@ -32,8 +40,8 @@ class MoyenneManager{
         return $moyenne;
     }
 
-    public  function moyenneSemester(EntityManagerInterface $manager,Etudiant $etudiant , int $sem){
-        $repository1= $manager->getRepository('App:MatiereNiveauFiliere');
+    public  function moyenneSemester(Etudiant $etudiant , int $sem){
+        $repository1= $this->em->getRepository('App:MatiereNiveauFiliere');
 
         $fil=$etudiant->getFiliere();
         $niv=$etudiant->getNiveau();
@@ -42,16 +50,16 @@ class MoyenneManager{
         $score=0;
         $coef=0;
         foreach($mats as $mat){
-            $score=$score + self::moyenneMatiere($manager,$etudiant,$mat->getMatiere())*$mat->getCoefficient();;
+            $score=$score + self::moyenneMatiere($etudiant,$mat->getMatiere())*$mat->getCoefficient();;
 
             $coef=$coef+$mat->getCoefficient();
         }
 
         return $score/$coef;
     }
-    public  function moyenneAnnuel(EntityManagerInterface $manager,$etudiant){
+    public  function moyenneAnnuel($etudiant){
 
-        return (self::moyenneSemester($manager,$etudiant , 1)+ self::moyenneSemester($manager,$etudiant ,2))/2 ;
+        return (self::moyenneSemester($etudiant , 1)+ self::moyenneSemester($etudiant ,2))/2 ;
     }
 
 
