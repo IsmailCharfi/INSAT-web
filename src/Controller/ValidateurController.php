@@ -116,7 +116,7 @@ class ValidateurController extends AbstractController
                 if($mat->getExamen() && $exam==true){ array_push($matiere[$matName],"Exam");}
 
             }
-            else{$matiere=array();}
+            //else{$matiere=array();}
         }
 
 
