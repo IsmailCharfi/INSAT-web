@@ -85,7 +85,7 @@ class UserManager
         if ($this->isAdmin())
         {
             $menuSection = new MenuSection("Administration");
-            $menuSection->addMenuItem(new MenuItem("Opérateurs", "users_index"));
+            $menuSection->addMenuItem(new MenuItem("Opérateurs", "operateur_index"));
             $menuSection->addMenuItem(new MenuItem("Creer un opérateur", "operateur_new"));
 
             array_push($menuSections, $menuSection);
