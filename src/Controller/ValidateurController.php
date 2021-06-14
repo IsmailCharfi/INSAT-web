@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Moyenne;
 use App\Entity\Note;
+use App\Service\MoyenneManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -215,6 +217,133 @@ class ValidateurController extends AbstractController
     }
 
 
+    #[Route('/validateur/moyenne', name: 'filiere')]
+    public function moyenneAffiche(MoyenneManager $moy): Response
+    {
+        $repository = $this->getDoctrine()->getRepository('App:Filiere');
+
+        $filiere = $repository->findall();
+
+
+        $filieres=array();
+        foreach($filiere as $fil){
+            $niveau=$fil->getNiveaux();
+            $fila=$fil->getFiliere();
+            $filieres[$fila]=array();
+            foreach($niveau as $niv){
+                array_push($filieres[$fila],$niv->getNiveau());
+
+
+            }
+        }
+
+
+
+        return $this->render('validateur/filiere.html.twig', [
+            'controller_name' => 'MoyenneController',
+            'title'=>'filieres',
+            'filieres'=>$filieres
+        ]);
+    }
+
+
+
+    #[Route('/validateur/moyenne/{filiere}/{niveau}/{semestre}', name: 'moyenne')]
+    public function moyenne(MoyenneManager $moy, $filiere,$niveau,$semestre): Response
+    {
+        $repository = $this->getDoctrine()->getRepository('App:Filiere');
+        $repository2 = $this->getDoctrine()->getRepository('App:Niveau');
+        $repository3 = $this->getDoctrine()->getRepository('App:MatiereNiveauFiliere');
+        $repository4 = $this->getDoctrine()->getRepository('App:Note');
+        $repository5 = $this->getDoctrine()->getRepository('App:Moyenne');
+        $repository6 = $this->getDoctrine()->getRepository('App:Etudiant');
+
+        $fil=$repository->findOneBy(['filiere'=>$filiere]);
+        $niv=$repository2->findOneBy(['niveau'=>$niveau]);
+
+
+
+        if(!$fil){return $this->redirectToRoute('not_found');}
+        if(!$niv){return $this->redirectToRoute('not_found');}
+        if($semestre!=1 && $semestre!=2){return $this->redirectToRoute('not_found');}
+        $matieres=$repository3->findBy(['filiere'=>$fil,'niveau'=>$niv,'semestre'=>$semestre]);
+
+        if(!$matieres){
+            $this->addFlash('warning', "pas de matiere :'(");
+            return $this->redirectToRoute('filiere');
+        }
+
+        foreach($matieres as $mat) {
+            if ($mat->getTp() == false) {
+                $tp = false;}
+            $notes = $repository4->findBy(['matiere' => $mat]);
+            $etudiants = $repository6->findBy(['filiere' => $fil, 'niveau' => $niv]);
+            if (sizeof($notes) != sizeof($etudiants)) {
+                $this->addFlash('warning', "la matiere " . $mat->getMatiere()->getNom() . " n'est pas validé");
+                return $this->redirectToRoute('filiere');
+            }
+
+            foreach ($notes as $note) {
+                if ($tp) {
+                    if ($note->getDsValid() == false || $note->getTpValid() == false || $note->getExamenValid() == false) {
+                        $this->addFlash('warning', "la note de  " . $note->getEtudiant()->getNom() . " " . $note->getEtudiant()->getPrenom() . " de la matiere" . $mat->getMatiere()->getNom() . " n'est pas validé");
+                        return $this->redirectToRoute('filiere');
+                    }
+                } else {
+                    if ($note->getDsValid() == false ||  $note->getExamenValid() == false) {
+                        $this->addFlash('warning', "la note de  " . $note->getEtudiant()->getNom() . " " . $note->getEtudiant()->getPrenom() . " de la matiere" . $mat->getMatiere()->getNom() . " n'est pas validé");
+                        return $this->redirectToRoute('filiere');
+
+                    }
+                }
+
+            }
+
+            foreach($notes as $note){
+                $moyenne=$repository5->findOneBy(['etudiant'=>$note->getEtudiant()]);
+                if($moyenne){
+                    if($semestre==1){
+                        $moyenne->setSem1($moy->moyenneSemester($note->getEtudiant(),$semestre));
+                    }elseif($semestre==2){
+                        $moyenne->setSem2($moy->moyenneSemester($note->getEtudiant(),$semestre));
+                        $moyenne->setAnnuelle($moy->moyenneAnnuel($note->getEtudiant()));
+                    }
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->flush();
+
+
+                }
+                else{
+                    $moyenne=new Moyenne();
+                    $moyenne->setEtudiant($note->getEtudiant());
+                    $moyenne->setAnneeScolaire(2021);
+                    if($semestre==1){
+                        $moyenne->setSem1($moy->moyenneSemester($note->getEtudiant(),$semestre));
+                        $moyenne->setSem1Valid(true);
+                    }elseif($semestre==2){
+                        $moyenne->setSem2Valid(true);
+                        $moyenne->setSem2($moy->moyenneSemester($note->getEtudiant(),$semestre));
+                        $moyenne->setAnnuelle($moy->moyenneAnnuel($note->getEtudiant()));
+                    }
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($moyenne);
+                    $entityManager->flush();
+
+
+
+                }
+            }
+
+
+        }
+        $this->addFlash('success', "operation faite avec success");
+        return $this->redirectToRoute('filiere');
+
+
+
+
+
+    }
 
 
 
