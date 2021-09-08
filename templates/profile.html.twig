@@ -8,7 +8,7 @@
                 <div class="image d-flex flex-column align-items-center">
 
                     <img id="account-img"
-                         {% if user.photo is defined and user.photo and  user.photo.isValid %}
+                         {% if user.photo is defined and user.photo  %}
                              src =" {{ user.photo.getFullUrl() }}"
                          {% else %}
                              src="{{ asset("assets/img/avatar.jpg") }}"
@@ -74,9 +74,11 @@
                     <hr>
                 {% endif %}
             </div>
-            <div class="btn btn-outline-primary">
-                Modifier votre mot de passe
-            </div>
+            
+		<div class="btn btn-outline-primary">
+                	<a href="/reset-password">Modifier votre mot de passe</a>
+	        </div>
+	    
         </div>
     </div>
 {% endblock %}

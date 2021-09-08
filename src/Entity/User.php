@@ -51,6 +51,11 @@ abstract  class User implements UserInterface
      */
     private $prenom;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Document::class, cascade={"persist", "remove"})
+     */
+    private $photo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +165,18 @@ abstract  class User implements UserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?Document
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?Document $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
